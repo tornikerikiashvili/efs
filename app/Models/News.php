@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Concerns\HasLocalizedSlugs;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -10,11 +11,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class News extends Model implements HasMedia
 {
-    use HasFactory, InteractsWithMedia, HasTrixRichText;
+    use HasFactory, InteractsWithMedia, HasTrixRichText, HasLocalizedSlugs;
 
     protected $fillable = [
         "name_ka",
         "name_en",
+        "slug_ka",
+        "slug_en",
         "meta_title_ka",
         "meta_title_en",
         "meta_description_ka",
@@ -23,7 +26,6 @@ class News extends Model implements HasMedia
         "content_ka",
         "short_content_en",
         "short_content_ka",
-        "slug",
         "content_en",
         "status",
         "news-trixFields"

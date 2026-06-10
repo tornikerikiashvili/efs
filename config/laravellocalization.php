@@ -42,6 +42,7 @@ return [
         //'et'          => ['name' => 'Estonian',               'script' => 'Latn', 'native' => 'eesti', 'regional' => 'et_EE'],
         //'na'          => ['name' => 'Nauru',                  'script' => 'Latn', 'native' => 'Ekakairũ Naoero', 'regional' => ''],
         //'guz'         => ['name' => 'Ekegusii',               'script' => 'Latn', 'native' => 'Ekegusii', 'regional' => ''],
+        'ka'          => ['name' => 'Georgian',               'script' => 'Geor', 'native' => 'ქართული', 'regional' => 'ka_GE'],
         'en'          => ['name' => 'English',                'script' => 'Latn', 'native' => 'English', 'regional' => 'en_GB'],
         //'en-AU'       => ['name' => 'Australian English',     'script' => 'Latn', 'native' => 'Australian English', 'regional' => 'en_AU'],
         //'en-GB'       => ['name' => 'British English',        'script' => 'Latn', 'native' => 'British English', 'regional' => 'en_GB'],
@@ -274,7 +275,6 @@ return [
         //'bo'          => ['name' => 'Tibetan',                'script' => 'Tibt', 'native' => 'པོད་སྐད་', 'regional' => 'bo_IN'],
         //'dz'          => ['name' => 'Dzongkha',               'script' => 'Tibt', 'native' => 'རྫོང་ཁ', 'regional' => 'dz_BT'],
         //'my'          => ['name' => 'Burmese',                'script' => 'Mymr', 'native' => 'မြန်မာဘာသာ', 'regional' => 'my_MM'],
-        'ka'          => ['name' => 'Georgian',               'script' => 'Geor', 'native' => 'ქართული', 'regional' => 'ka_GE'],
         //'byn'         => ['name' => 'Blin',                   'script' => 'Ethi', 'native' => 'ብሊን', 'regional' => 'byn_ER'],
         //'tig'         => ['name' => 'Tigre',                  'script' => 'Ethi', 'native' => 'ትግረ', 'regional' => 'tig_ER'],
         //'ti'          => ['name' => 'Tigrinya',               'script' => 'Ethi', 'native' => 'ትግርኛ', 'regional' => 'ti_ET'],
@@ -326,12 +326,12 @@ return [
     // If `useAcceptLanguageHeader` is true, then the first time
     // the locale will be determined from browser and redirect to that language.
     // After that, `hideDefaultLocaleInURL` behaves as usual.
-    'hideDefaultLocaleInURL' => false,
+    'hideDefaultLocaleInURL' => true,
 
     // If you want to display the locales in particular order in the language selector you should write the order here.
     //CAUTION: Please consider using the appropriate locale code otherwise it will not work
     //Example: 'localesOrder' => ['es','en'],
-    'localesOrder' => [],
+    'localesOrder' => ['ka', 'en'],
 
     //  If you want to use custom lang url segments like 'at' instead of 'de-AT', you can use the mapping to tallow the LanguageNegotiator to assign the descired locales based on HTTP Accept Language Header. For example you want ot use 'at', so map HTTP Accept Language Header 'de-AT' to 'at' (['de-AT' => 'at']).
     'localesMapping' => [],

@@ -10,26 +10,22 @@
                     <div class="card-body">
 
                         <form  method="POST"
-                            action="{{ isset($news) ? route('news.update', ['news' => $news['id']]) : route('news.store') }}"
+                            action="{{ isset($blog) ? route('blog.update', ['blog' => $blog['id']]) : route('blog.store') }}"
                             autocomplete="off" enctype="multipart/form-data">
                             @csrf
                             
-                            <input type="hidden" name="_method" value="{{ isset($news) ? 'put' : 'post' }}" />
+                            <input type="hidden" name="_method" value="{{ isset($blog) ? 'put' : 'post' }}" />
 
                             <h6 class="heading-small text-muted mb-4">{{ __('Edit Blade') }}</h6>
 
-
-
-                            <x-forms.input type="text" name="name_ka" headline="Name KA" value="{{  $news['name_ka'] ?? old('name_ka') }}" />
-                            <x-forms.input type="text" name="name_en" headline="Name EN" value="{{  $news['name_en'] ?? old('name_en') }}" />
-                            <x-forms.input type="text" name="slug_ka" headline="Slug KA (optional)" value="{{  $news['slug_ka'] ?? old('slug_ka') }}" />
-                            <x-forms.input type="text" name="slug_en" headline="Slug EN (optional)" value="{{  $news['slug_en'] ?? old('slug_en') }}" />
-                            <x-forms.input type="text" name="meta_title_ka" headline="Meta Title KA" value="{{  $news['meta_title_ka'] ?? old('meta_title_ka') }}" />
-                            <x-forms.input type="text" name="meta_title_en" headline="Meta Title EN" value="{{  $news['meta_title_en'] ?? old('meta_title_en') }}" />
-                            <x-forms.input type="text" name="meta_description_ka" headline="Meta Description KA" value="{{  $news['meta_description_ka'] ?? old('meta_description_ka') }}" />
-                            <x-forms.input type="text" name="meta_description_en" headline="Meta Description EN" value="{{  $news['meta_description_en'] ?? old('meta_description_en') }}" />
-
-                            
+                            <x-forms.input type="text" name="name_ka" headline="Name KA" value="{{  $blog['name_ka'] ?? old('name_ka') }}" />
+                            <x-forms.input type="text" name="name_en" headline="Name EN" value="{{  $blog['name_en'] ?? old('name_en') }}" />
+                            <x-forms.input type="text" name="slug_ka" headline="Slug KA (optional)" value="{{  $blog['slug_ka'] ?? old('slug_ka') }}" />
+                            <x-forms.input type="text" name="slug_en" headline="Slug EN (optional)" value="{{  $blog['slug_en'] ?? old('slug_en') }}" />
+                            <x-forms.input type="text" name="meta_title_ka" headline="Meta Title KA" value="{{  $blog['meta_title_ka'] ?? old('meta_title_ka') }}" />
+                            <x-forms.input type="text" name="meta_title_en" headline="Meta Title EN" value="{{  $blog['meta_title_en'] ?? old('meta_title_en') }}" />
+                            <x-forms.input type="text" name="meta_description_ka" headline="Meta Description KA" value="{{  $blog['meta_description_ka'] ?? old('meta_description_ka') }}" />
+                            <x-forms.input type="text" name="meta_description_en" headline="Meta Description EN" value="{{  $blog['meta_description_en'] ?? old('meta_description_en') }}" />
 
                             <div class="pl-lg-4">
                                 <div class="fileinput fileinput-new text-center {{ $errors->has('image') ? ' has-danger' : '' }}" data-provides="fileinput">
@@ -50,7 +46,7 @@
                                             <span class="fileinput-exists">Change</span>
                                             <input type="file" name="image" />
                                         </span>
-                                        @if(isset($news) && isset($mediaItems[0]))
+                                        @if(isset($blog) && isset($mediaItems[0]))
                                         <span href="#pablo" onclick="deleteBtn('{{route('imgdelete', ['imgid' => $mediaItems[0]['id']])}}')" class="btn btn-danger btn-round fileinput-exists"
                                             data-dismiss="fileinput">
                                             <i class="fa fa-times"></i> Remove</span>
@@ -60,52 +56,49 @@
 
                                 <br><br>
 
-                                @if(isset($news))
+                                @if(isset($blog))
                                     <div class="form-group">
                                         <label>Short Content KA</label>
-                                        {!! $news->trix('short_content_ka') !!}
+                                        {!! $blog->trix('short_content_ka') !!}
                                     </div>
                                     <div class="form-group">
                                         <label>Short Content EN</label>
-                                        {!! $news->trix('short_content_en') !!}
+                                        {!! $blog->trix('short_content_en') !!}
                                     </div>
                                     <br>
                                     <div class="form-group">
                                         <label>Content KA</label>
-                                        {!! $news->trix('content_ka') !!}
+                                        {!! $blog->trix('content_ka') !!}
                                      </div>
                                      <div class="form-group">
                                         <label>Content EN</label>
-                                        {!! $news->trix('content_en') !!}
+                                        {!! $blog->trix('content_en') !!}
                                     </div>
                                 @else
                                     <div class="form-group">
                                         <label>Short Content KA</label>
-                                        @trix(\App\Models\News::class, 'short_content_ka')
+                                        @trix(\App\Models\Blog::class, 'short_content_ka')
                                     </div>
                                     <div class="form-group">
                                         <label>Short Content EN</label>
-                                        @trix(\App\Models\News::class, 'short_content_en')
+                                        @trix(\App\Models\Blog::class, 'short_content_en')
                                     </div>
                                     <br>
                                     <div class="form-group">
                                         <label>Content KA</label>
-                                        @trix(\App\Models\News::class, 'content_ka')
+                                        @trix(\App\Models\Blog::class, 'content_ka')
                                     </div>
                                     <div class="form-group">
                                         <label>Content EN</label>
-                                        @trix(\App\Models\News::class, 'content_en')
+                                        @trix(\App\Models\Blog::class, 'content_en')
                                     </div>
                                 @endif
-                               
-                               
-                               
 
                                 <br>
                                 <h3>status</h3>
                                 <div class="form-check form-check-radio">
                                     <label class="form-check-label">
-                                        <input class="form-check-input" type="radio" name="status" id="status1" value="1" {{(isset($news) && $news['status'] == 1) ? 'checked' : ''}}>
+                                        <input class="form-check-input" type="radio" name="status" id="status1" value="1" {{(isset($blog) && $blog['status'] == 1) ? 'checked' : ''}}>
                                         Show
                                         <span class="circle">
                                             <span class="check"></span>
@@ -114,7 +107,7 @@
                                 </div>
                                 <div class="form-check form-check-radio">
                                     <label class="form-check-label">
-                                        <input class="form-check-input" type="radio" name="status" id="status2" value="0" {{isset($news) && $news['status'] == 0 ? 'checked' : ''}}>
+                                        <input class="form-check-input" type="radio" name="status" id="status2" value="0" {{isset($blog) && $blog['status'] == 0 ? 'checked' : ''}}>
                                         Hide
                                         <span class="circle">
                                             <span class="check"></span>
@@ -133,10 +126,6 @@
             </div>
         </div>
     @endsection
-    <!-- Initialize Quill editor -->
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-    
- 
 
     @push('js')
         <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.min.js"></script>

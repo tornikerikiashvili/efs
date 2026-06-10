@@ -60,7 +60,7 @@
                         <div class="col-md-9 ">
                         </div>
                         <div class="col-md-3">
-                            <a href="{{ route('singleservice', ['slug' => $service->slug, 'id' => $service->id]) }}"
+                            <a href="{{ route('singleservice', ['slug' => $service->slugForLocale()]) }}"
                                 class="circle-button btn-border btn btn-sm nav-justified">{{ __('other.readmore') }}</a>
                         </div>
                     </div>

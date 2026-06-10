@@ -15,11 +15,11 @@
                                         </div>
                                         <a class="block-comment" href="#">2 <i class="fa fa-comment-o"></i></a>
                                     </div>
-                                    <a class="img-box" href="/{{app()->getLocale()}}/news/{{$n['id']}}"><img class="anima" src="{{ $n->getFirstMediaUrl('main') }}" alt=""
+                                    <a class="img-box" href="{{ route('singlenews', ['slug' => $n->slugForLocale()]) }}"><img class="anima" src="{{ $n->getFirstMediaUrl('main') }}" alt=""
                                             style="margin-top: -34px; position: relative; transition-duration: 500ms; animation-duration: 500ms; transition-timing-function: ease; transition-delay: 0ms;"
                                             aid="0.5357019905551677"></a>
                                     <div class="advs-box-content">
-                                        <h2><a href="/{{app()->getLocale()}}/news/{{$n['id']}}">{{$n['name_'.app()->getLocale()]}}</a></h2>
+                                        <h2><a href="{{ route('singlenews', ['slug' => $n->slugForLocale()]) }}">{{$n['name_'.app()->getLocale()]}}</a></h2>
                                         <div class="tag-row">
                                             {{-- <span><i class="fa fa-bookmark"></i> <a href="#">Business</a>, <a
                                                     href="#">Financial</a></span>

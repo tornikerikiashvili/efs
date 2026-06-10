@@ -184,8 +184,6 @@ class ProjectsController extends Controller
             
         ]);
 
-        $slug = Str::slug($request->name_ka);
-       
         if ($validator->fails()) {
             return redirect()
                         ->back()
@@ -194,10 +192,9 @@ class ProjectsController extends Controller
         }
 
        
-        $created = Projects::create([
+        $created = Projects::create(array_merge([
             "name_ka" => $request->name_ka,
             "name_en" => $request->name_en,
-            "slug" => $slug,
             "status" => $request->status ?? 1,
             "meta_title_ka" => $request->meta_title_ka ?? null,
             "meta_title_en" => $request->meta_title_en ?? null,
@@ -205,7 +202,7 @@ class ProjectsController extends Controller
             "content_ka" => $request->content_ka ?? '',
             "content_en" => $request->content_en ?? '',
             'projects-trixFields' => $request['projects-trixFields']
-        ]);
+        ], slugs_from_request($request, 'projects')));
 
         
         
@@ -281,8 +278,7 @@ class ProjectsController extends Controller
         }
 
         
-        $updated = $projects->find($id)->update(
-            [
+        $updated = $projects->find($id)->update(array_merge([
                 "name_ka" => $request->name_ka,
                 "name_en" => $request->name_en,
                 "status" => $request->status,
@@ -292,8 +288,7 @@ class ProjectsController extends Controller
                 "content_ka" => $request->content_ka ?? '',
                 "content_en" => $request->content_en ?? '',
                 'projects-trixFields' => $request['projects-trixFields']
-            ]
-        );
+            ], slugs_from_request($request, 'projects', (int) $id)));
 
 
         

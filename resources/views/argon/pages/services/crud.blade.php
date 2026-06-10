@@ -24,6 +24,10 @@
                                 value="{{ $service['name_ka'] ?? old('name_ka') }}" />
                             <x-forms.input type="text" name="name_en" headline="Name EN"
                                 value="{{ $service['name_en'] ?? old('name_en') }}" />
+                            <x-forms.input type="text" name="slug_ka" headline="Slug KA (optional)"
+                                value="{{ $service['slug_ka'] ?? old('slug_ka') }}" />
+                            <x-forms.input type="text" name="slug_en" headline="Slug EN (optional)"
+                                value="{{ $service['slug_en'] ?? old('slug_en') }}" />
                             <x-forms.input type="text" name="meta_title_ka" headline="Meta Title KA"
                                 value="{{ $service['meta_title_ka'] ?? old('meta_title_ka') }}" />
                             <x-forms.input type="text" name="meta_title_en" headline="Meta Title EN"

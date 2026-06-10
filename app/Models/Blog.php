@@ -9,7 +9,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Te7aHoudini\LaravelTrix\Traits\HasTrixRichText;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Services extends Model implements HasMedia
+class Blog extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia, HasTrixRichText, HasLocalizedSlugs;
 
@@ -24,10 +24,11 @@ class Services extends Model implements HasMedia
         "meta_description_en",
         "image",
         "content_ka",
+        "short_content_en",
+        "short_content_ka",
         "content_en",
         "status",
-        "icon",
-        "services-trixFields"
+        "blog-trixFields"
     ];
 
     public function trixRender($field)

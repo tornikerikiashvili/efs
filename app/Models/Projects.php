@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Concerns\HasLocalizedSlugs;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -10,19 +11,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Projects extends Model implements HasMedia
 {
- 
-    use HasFactory, InteractsWithMedia, HasTrixRichText;
-    
+    use HasFactory, InteractsWithMedia, HasTrixRichText, HasLocalizedSlugs;
+
     protected $fillable = [
         "name_ka",
         "name_en",
+        "slug_ka",
+        "slug_en",
         "meta_title_ka",
         "meta_title_en",
         "meta_description_ka",
         "meta_description_en",
         "image",
         "content_ka",
-        "slug",
         "content_en",
         "status",
         "projects-trixFields"
@@ -30,7 +31,8 @@ class Projects extends Model implements HasMedia
 
     public function trixRender($field)
     {
-        return $this->trixRichText->where('field', $field)->first()->content;
+        $get = $this->trixRichText->where('field', $field)->first();
+        if(!$get) return false;
+        return $get->content;
     }
-   
 }

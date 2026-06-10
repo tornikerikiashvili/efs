@@ -22,5 +22,6 @@ return [
     'services' => 'Services',
     'projects' => 'Projects',
     'news' => 'News',
+    'blog' => 'Blog',
     'contact' => 'Contact'
 ];

@@ -2,29 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\News;
+use App\Models\Blog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class NewsController extends Controller
+class BlogController extends Controller
 {
     public function front_index()
     {
-        $news = News::where('status', 1)->orderBy('id', 'DESC')->get();
+        $blogs = Blog::where('status', 1)->orderBy('id', 'DESC')->get();
 
-        return view('news')->with(compact('news'));
+        return view('blog')->with(compact('blogs'));
     }
 
     public function index()
     {
-        $allnews = News::all();
+        $allblogs = Blog::all();
 
-        return view('argon.pages.news.index')->with(compact('allnews'));
+        return view('argon.pages.blog.index')->with(compact('allblogs'));
     }
 
     public function create()
     {
-        return view('argon.pages.news.crud');
+        return view('argon.pages.blog.crud');
     }
 
     public function store(Request $request)
@@ -39,7 +39,7 @@ class NewsController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $created = News::create(array_merge([
+        $created = Blog::create(array_merge([
             "name_ka" => $request->name_ka,
             "name_en" => $request->name_en,
             "status" => $request->status ?? 1,
@@ -48,8 +48,8 @@ class NewsController extends Controller
             "meta_description_ka" => $request->meta_description_ka ?? null,
             "content_ka" => $request->content_ka ?? '',
             "content_en" => $request->content_en ?? '',
-            'news-trixFields' => $request['news-trixFields'],
-        ], slugs_from_request($request, 'news')));
+            'blog-trixFields' => $request['blog-trixFields'],
+        ], slugs_from_request($request, 'blogs')));
 
         if ($created) {
             if ($request->hasFile('image') && $request->file('image')->isValid()) {
@@ -64,29 +64,29 @@ class NewsController extends Controller
 
     public function front_show($slug)
     {
-        $single = resolve_localized_content(News::class, $slug);
+        $single = resolve_localized_content(Blog::class, $slug);
 
         if ($single instanceof \Illuminate\Http\RedirectResponse) {
             return $single;
         }
 
-        $news = News::where('status', 1)->orderBy('id', 'DESC')->get();
+        $blogs = Blog::where('status', 1)->orderBy('id', 'DESC')->get();
 
-        return view('single-news')->with(compact('single', 'news'));
+        return view('single-blog')->with(compact('single', 'blogs'));
     }
 
     public function edit($id)
     {
-        $news = News::find($id);
-        $mediaItems = $news->getMedia('main');
+        $blog = Blog::find($id);
+        $mediaItems = $blog->getMedia('main');
 
-        return view('argon.pages.news.crud')->with(compact('news', 'mediaItems'));
+        return view('argon.pages.blog.crud')->with(compact('blog', 'mediaItems'));
     }
 
     public function update($id, Request $request)
     {
-        News::find($id)->update([
-            'news-trixFields' => $request['news-trixFields'],
+        Blog::find($id)->update([
+            'blog-trixFields' => $request['blog-trixFields'],
         ]);
 
         $validator = Validator::make($request->all(), [
@@ -99,7 +99,7 @@ class NewsController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $updated = News::find($id)->update(array_merge([
+        $updated = Blog::find($id)->update(array_merge([
             "name_ka" => $request->name_ka,
             "name_en" => $request->name_en,
             "status" => $request->status,
@@ -108,17 +108,17 @@ class NewsController extends Controller
             "meta_description_ka" => $request->meta_description_ka ?? null,
             "content_ka" => $request->content_ka ?? '',
             "content_en" => $request->content_en ?? '',
-            'news-trixFields' => $request['news-trixFields'],
-        ], slugs_from_request($request, 'news', (int) $id)));
+            'blog-trixFields' => $request['blog-trixFields'],
+        ], slugs_from_request($request, 'blogs', (int) $id)));
 
         if ($updated) {
             if ($request->hasFile('image') && $request->file('image')->isValid()) {
-                $project = News::find($id);
-                $mediaItems = $project->getMedia('main');
+                $blog = Blog::find($id);
+                $mediaItems = $blog->getMedia('main');
                 if (isset($mediaItems[0])) {
                     $mediaItems[0]->delete();
                 }
-                $project->addMedia($request->image)->toMediaCollection('main');
+                $blog->addMedia($request->image)->toMediaCollection('main');
             }
 
             return redirect()->back()->withSuccess('IT WORKS!');
@@ -127,10 +127,10 @@ class NewsController extends Controller
         return redirect()->back()->withErrors(['error update']);
     }
 
-    public function destroy(News $news)
+    public function destroy(Blog $blog)
     {
-        $news->delete();
+        $blog->delete();
 
-        return redirect()->route('news.index')->withSuccess('Deleted');
+        return redirect()->route('blog.index')->withSuccess('Deleted');
     }
 }

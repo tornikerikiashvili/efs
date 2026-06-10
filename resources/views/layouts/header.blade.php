@@ -3,29 +3,9 @@
 <!--<![endif]-->
 
 <head>
-    
-    <meta name="google-site-verification" content="lGD-ST7F_330uxZYLCNZCnOaKnp48Kys3yG6B7nYpp4" />
-    
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V27KQJEQDL"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-V27KQJEQDL');
-    </script>
-    
-    <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "x19mo7th9m");
-    </script>
 
     <meta charset="utf-8">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="noindex">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>EFS - ექსპერტები გადაწყვეტილებებისთვის</title>
@@ -259,7 +239,6 @@
                     <div class="nav navbar-nav navbar-left">
                         <span><i class="fa fa-phone"></i><a href="tel:+995591516183">+995 591 51 61 83</a></span>
                         <hr>
-                        
                         <span><i class="fa fa-envelope"></i>info@ef-s.ge</span>
                         <hr>
                         <span> <i class="fa fa-map-marker"></i> {{ __('other.contact_address') }}</span>
@@ -284,7 +263,7 @@
                         <button type="button" class="navbar-toggle">
                             <i class="fa fa-bars"></i>
                         </button>
-                        <a class="navbar-brand mainlogo" href="/" style="">
+                        <a class="navbar-brand mainlogo" href="{{ route('homepagefront') }}" style="">
                             <img class="logo-default" src="/images/Logo-{{ app()->getLocale() }}.png?2" alt="logo">
                             <img class="logo-retina" src="/images/Logo-{{ app()->getLocale() }}.png?2"
                                 alt="logo">
@@ -293,21 +272,21 @@
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav">
                             <li class="dropdown">
-                                <a href="/about" class="dropdown-toggle" data-toggle="dropdown"
+                                <a href="{{ route('about') }}" class="dropdown-toggle" data-toggle="dropdown"
                                     role="button">{{ __('menu.about.about_us') }} <span
                                         class="caret hideonmobile"></span></a>
                                 <a href="#" class="dropdown-toggle customwith hideondesktop"
                                     data-toggle="dropdown" role="button"><span class="caret"></span></a>
                                 <ul class="dropdown-menu multi-level fade-in"
                                     style="transition-duration: 300ms; animation-duration: 300ms; transition-timing-function: ease; transition-delay: 0ms;">
-                                    <li><a href="/about">{{ __('menu.about.company') }}</a></li>
-                                    <li><a href="/about2#misia">{{ __('menu.about.mission') }}</a></li>
-                                    <li><a href="/about2#mizani">{{ __('menu.about.goal') }}</a></li>
-                                    <li><a href="/about2#girebulebebi">{{ __('menu.about.values') }}</a></li>
+                                    <li><a href="{{ route('about') }}">{{ __('menu.about.company') }}</a></li>
+                                    <li><a href="{{ route('sub-about') }}#misia">{{ __('menu.about.mission') }}</a></li>
+                                    <li><a href="{{ route('sub-about') }}#mizani">{{ __('menu.about.goal') }}</a></li>
+                                    <li><a href="{{ route('sub-about') }}#girebulebebi">{{ __('menu.about.values') }}</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="/services" class="dropdown-toggle" data-toggle="dropdown"
+                                <a href="{{ route('services') }}" class="dropdown-toggle" data-toggle="dropdown"
                                     role="button">{{ __('menu.services') }} <span
                                         class="caret hideonmobile"></span></a>
                                 <a href="#" class="dropdown-toggle customwith hideondesktop"
@@ -316,19 +295,22 @@
                                     style="transition-duration: 300ms; animation-duration: 300ms; transition-timing-function: ease; transition-delay: 0ms;">
                                     @foreach ($services as $item)
                                         <li><a
-                                                href="/services#{{ $item['id'] }}">{{ $item['name_' . app()->getLocale()] }}</a>
+                                                href="{{ route('services') }}#{{ $item['id'] }}">{{ $item['name_' . app()->getLocale()] }}</a>
                                         </li>
                                     @endforeach
                                 </ul>
                             </li>
                             <li class="mega-tabs">
-                                <a class="" href="/projects">{{ __('menu.projects') }}</a>
+                                <a class="" href="{{ route('projects') }}">{{ __('menu.projects') }}</a>
                             </li>
                             <li class="mega-tabs">
-                                <a class="" href="/news">{{ __('menu.news') }}</a>
+                                <a class="" href="{{ route('news') }}">{{ __('menu.news') }}</a>
                             </li>
                             <li class="mega-tabs">
-                                <a class="" href="/contact">{{ __('menu.contact') }}</a>
+                                <a class="" href="{{ route('blog') }}">{{ __('menu.blog') }}</a>
+                            </li>
+                            <li class="mega-tabs">
+                                <a class="" href="{{ route('contact') }}">{{ __('menu.contact') }}</a>
                             </li>
                         </ul>
                         <div class="nav navbar-nav navbar-right">
@@ -347,7 +329,7 @@
                                             role="button"><img src="/images/ka-logo.png" alt="">GE<span
                                                 class="caret"></span></a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="{{ LaravelLocalization::getLocalizedURL('en') }}"><img
+                                            <li><a href="{{ localized_switch_url('en', $localeSwitchEntity ?? null) }}"><img
                                                         src="/images/en.png" alt="">EN</a></li>
                                         </ul>
                                     @elseif(App::getLocale() == 'en')
@@ -355,7 +337,7 @@
                                             role="button"><img src="/images/en.png" alt="">EN<span
                                                 class="caret"></span></a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="{{ LaravelLocalization::getLocalizedURL('ka') }}"><img
+                                            <li><a href="{{ localized_switch_url('ka', $localeSwitchEntity ?? null) }}"><img
                                                         src="/images/ka-logo.png" alt="">KA</a></li>
                                         </ul>
                                     @endif

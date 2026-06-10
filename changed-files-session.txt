@@ -1,0 +1,86 @@
+EFS Project — Files changed during Cursor session
+Generated: 2026-06-04
+============================================================
+
+CONFIG
+------
+config/laravellocalization.php
+
+ROUTES
+------
+routes/web.php
+
+APPLICATION — PHP
+-----------------
+app/helpers.php
+app/Concerns/HasLocalizedSlugs.php                    [NEW]
+app/Http/Kernel.php
+app/Http/Middleware/SyncLocaleSession.php             [NEW]
+app/Models/News.php
+app/Models/Blog.php                                   [NEW]
+app/Models/Services.php
+app/Models/Projects.php
+app/Http/Controllers/NewsController.php
+app/Http/Controllers/BlogController.php               [NEW]
+app/Http/Controllers/ServicesController.php
+app/Http/Controllers/ProjectsController.php
+DATABASE MIGRATIONS
+-------------------
+database/migrations/2026_06_03_000001_add_localized_slugs_to_content_tables.php   [NEW]
+database/migrations/2026_06_03_000002_create_blogs_table.php                     [NEW]
+
+RESOURCES — VIEWS (FRONTEND)
+----------------------------
+resources/views/layouts/header.blade.php
+resources/views/news.blade.php
+resources/views/blog.blade.php                        [NEW]
+resources/views/single-news.blade.php
+resources/views/single-blog.blade.php                 [NEW]
+resources/views/single-service.blade.php
+resources/views/services.blade.php
+
+RESOURCES — VIEWS (ARGON ADMIN)
+-------------------------------
+resources/views/argon/layouts/navbars/sidebar.blade.php
+resources/views/argon/layouts/navbars/navs/guest.blade.php
+resources/views/argon/pages/news/crud.blade.php
+resources/views/argon/pages/blog/index.blade.php      [NEW]
+resources/views/argon/pages/blog/crud.blade.php       [NEW]
+resources/views/argon/pages/services/crud.blade.php
+resources/views/argon/pages/projects/crud.blade.php
+
+RESOURCES — LANG
+----------------
+resources/lang/ka/menu.php
+resources/lang/en/menu.php
+
+LOCAL ENV (not for production git — configure on server)
+------------------------------------------------------
+.env                                                  [modified locally only]
+
+============================================================
+TOTAL: 32 project files (+ .env local only)
+NEW files: 9
+============================================================
+
+SUMMARY OF CHANGES
+------------------
+- Locale URLs: Georgian without /ka prefix; English under /en/
+- Multilingual slugs: slug_ka + slug_en on news, services, projects, blogs
+- Blog module cloned from news (model, admin, public pages)
+- Language switcher uses localized_switch_url() for different slugs per locale
+- Admin login: restored route name "home"
+- Numeric slug / legacy ID routing fixes for blog and news
+
+NOT CHANGED (vendor / compiled — clear caches after deploy)
+------------------------------------------------------------
+vendor/*
+storage/framework/views/*                               [recompile on deploy]
+bootstrap/cache/*                                     [optional clear]
+
+POST-DEPLOY COMMANDS
+--------------------
+php artisan migrate --force
+php artisan config:clear
+php artisan route:clear
+php artisan view:clear

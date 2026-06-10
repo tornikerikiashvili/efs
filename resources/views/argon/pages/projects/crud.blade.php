@@ -22,6 +22,8 @@
 
                             <x-forms.input type="text" name="name_ka" headline="Name KA" value="{{  $project['name_ka'] ?? old('name_ka') }}" />
                             <x-forms.input type="text" name="name_en" headline="Name EN" value="{{  $project['name_en'] ?? old('name_en') }}" />
+                            <x-forms.input type="text" name="slug_ka" headline="Slug KA (optional)" value="{{  $project['slug_ka'] ?? old('slug_ka') }}" />
+                            <x-forms.input type="text" name="slug_en" headline="Slug EN (optional)" value="{{  $project['slug_en'] ?? old('slug_en') }}" />
                             <x-forms.input type="text" name="meta_title_ka" headline="Meta Title KA" value="{{  $project['meta_title_ka'] ?? old('meta_title_ka') }}" />
                             <x-forms.input type="text" name="meta_title_en" headline="Meta Title EN" value="{{  $project['meta_title_en'] ?? old('meta_title_en') }}" />
                             <x-forms.input type="text" name="meta_description_ka" headline="Meta Description KA" value="{{  $project['meta_description_ka'] ?? old('meta_description_ka') }}" />

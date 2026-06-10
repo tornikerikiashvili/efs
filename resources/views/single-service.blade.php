@@ -1,4 +1,7 @@
-@include('layouts.header',['services' => $cat = App\Models\Services::select('id','name_'.app()->getLocale())->where('status',1)->get()])
+@include('layouts.header',[
+    'services' => $cat = App\Models\Services::select('id','name_'.app()->getLocale())->where('status',1)->get(),
+    'localeSwitchEntity' => $service,
+])
 <div class="header-base">
     <div class="container">
         <div class="row">
@@ -45,7 +48,7 @@
                                 <ul class="services-cat">
                                     @foreach($services as $item)
                                         <li class="{{($service->id == $item->id) ? 'active' : '' }}">
-                                            <a href="{{route('singleservice',['slug'=>$item['slug'],'id'=>$item['id']])}}">
+                                            <a href="{{ route('singleservice', ['slug' => $item->slugForLocale()]) }}">
                                                 <span>{{$item['name_'.app()->getlocale()]}}</span>
                                             </a>
                                         </li>
