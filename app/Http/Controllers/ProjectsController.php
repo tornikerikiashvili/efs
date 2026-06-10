@@ -199,6 +199,11 @@ class ProjectsController extends Controller
             "meta_title_ka" => $request->meta_title_ka ?? null,
             "meta_title_en" => $request->meta_title_en ?? null,
             "meta_description_ka" => $request->meta_description_ka ?? null,
+            "meta_description_en" => $request->meta_description_en ?? null,
+            "og_title_ka" => $request->og_title_ka ?? null,
+            "og_title_en" => $request->og_title_en ?? null,
+            "og_description_ka" => $request->og_description_ka ?? null,
+            "og_description_en" => $request->og_description_en ?? null,
             "content_ka" => $request->content_ka ?? '',
             "content_en" => $request->content_en ?? '',
             'projects-trixFields' => $request['projects-trixFields']
@@ -285,6 +290,11 @@ class ProjectsController extends Controller
                 "meta_title_ka" => $request->meta_title_ka ?? null,
                 "meta_title_en" => $request->meta_title_en ?? null,
                 "meta_description_ka" => $request->meta_description_ka ?? null,
+                "meta_description_en" => $request->meta_description_en ?? null,
+                "og_title_ka" => $request->og_title_ka ?? null,
+                "og_title_en" => $request->og_title_en ?? null,
+                "og_description_ka" => $request->og_description_ka ?? null,
+                "og_description_en" => $request->og_description_en ?? null,
                 "content_ka" => $request->content_ka ?? '',
                 "content_en" => $request->content_en ?? '',
                 'projects-trixFields' => $request['projects-trixFields']

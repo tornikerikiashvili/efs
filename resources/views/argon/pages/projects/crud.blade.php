@@ -18,18 +18,45 @@
 
                             <h6 class="heading-small text-muted mb-4">{{ __('Edit Blade') }}</h6>
 
+                            <x-forms.locale-tabs id="projects-locale">
+                                <x-slot name="ka">
+                                    <x-forms.input type="text" name="name_ka" headline="Name" value="{{  $project['name_ka'] ?? old('name_ka') }}" />
+                                    <x-forms.input type="text" name="slug_ka" headline="Slug (optional)" value="{{  $project['slug_ka'] ?? old('slug_ka') }}" />
 
+                                    <x-forms.seo-og-section locale="ka" :record="$project ?? null" />
 
-                            <x-forms.input type="text" name="name_ka" headline="Name KA" value="{{  $project['name_ka'] ?? old('name_ka') }}" />
-                            <x-forms.input type="text" name="name_en" headline="Name EN" value="{{  $project['name_en'] ?? old('name_en') }}" />
-                            <x-forms.input type="text" name="slug_ka" headline="Slug KA (optional)" value="{{  $project['slug_ka'] ?? old('slug_ka') }}" />
-                            <x-forms.input type="text" name="slug_en" headline="Slug EN (optional)" value="{{  $project['slug_en'] ?? old('slug_en') }}" />
-                            <x-forms.input type="text" name="meta_title_ka" headline="Meta Title KA" value="{{  $project['meta_title_ka'] ?? old('meta_title_ka') }}" />
-                            <x-forms.input type="text" name="meta_title_en" headline="Meta Title EN" value="{{  $project['meta_title_en'] ?? old('meta_title_en') }}" />
-                            <x-forms.input type="text" name="meta_description_ka" headline="Meta Description KA" value="{{  $project['meta_description_ka'] ?? old('meta_description_ka') }}" />
-                            <x-forms.input type="text" name="meta_description_en" headline="Meta Description EN" value="{{  $project['meta_description_en'] ?? old('meta_description_en') }}" />
+                                    @if(isset($project))
+                                        <div class="form-group">
+                                            <label>Content</label>
+                                            {!! $project->trix('content_ka') !!}
+                                        </div>
+                                    @else
+                                        <div class="form-group">
+                                            <label>Content</label>
+                                            @trix(\App\Models\Projects::class, 'content_ka')
+                                        </div>
+                                    @endif
+                                </x-slot>
 
-                            
+                                <x-slot name="en">
+                                    <x-forms.input type="text" name="name_en" headline="Name" value="{{  $project['name_en'] ?? old('name_en') }}" />
+                                    <x-forms.input type="text" name="slug_en" headline="Slug (optional)" value="{{  $project['slug_en'] ?? old('slug_en') }}" />
+
+                                    <x-forms.seo-og-section locale="en" :record="$project ?? null" />
+
+                                    @if(isset($project))
+                                        <div class="form-group">
+                                            <label>Content</label>
+                                            {!! $project->trix('content_en') !!}
+                                        </div>
+                                    @else
+                                        <div class="form-group">
+                                            <label>Content</label>
+                                            @trix(\App\Models\Projects::class, 'content_en')
+                                        </div>
+                                    @endif
+                                </x-slot>
+                            </x-forms.locale-tabs>
 
                             <div class="pl-lg-4">
                                 <div class="fileinput fileinput-new text-center {{ $errors->has('image') ? ' has-danger' : '' }}" data-provides="fileinput">
@@ -60,30 +87,6 @@
 
                                 <br><br>
 
-                                @if(isset($project))
-                                    <div class="form-group">
-                                        <label>Short Content KA</label>
-                                        {!! $project->trix('content_ka') !!}
-                                     </div>
-                                     <div class="form-group">
-                                        <label>Short Content EN</label>
-                                        {!! $project->trix('content_en') !!}
-                                    </div>
-                                @else
-                                    <div class="form-group">
-                                        <label>Short Content KA</label>
-                                        @trix(\App\Models\Projects::class, 'content_ka')
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Short Content EN</label>
-                                        @trix(\App\Models\Projects::class, 'content_en')
-                                    </div>
-                                @endif
-                               
-                               
-                               
-
-                                <br>
                                 <h3>status</h3>
                                 <div class="form-check form-check-radio">
                                     <label class="form-check-label">

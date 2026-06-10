@@ -18,18 +18,61 @@
 
                             <h6 class="heading-small text-muted mb-4">{{ __('Edit Blade') }}</h6>
 
+                            <x-forms.locale-tabs id="news-locale">
+                                <x-slot name="ka">
+                                    <x-forms.input type="text" name="name_ka" headline="Name" value="{{  $news['name_ka'] ?? old('name_ka') }}" />
+                                    <x-forms.input type="text" name="slug_ka" headline="Slug (optional)" value="{{  $news['slug_ka'] ?? old('slug_ka') }}" />
 
+                                    <x-forms.seo-og-section locale="ka" :record="$news ?? null" />
 
-                            <x-forms.input type="text" name="name_ka" headline="Name KA" value="{{  $news['name_ka'] ?? old('name_ka') }}" />
-                            <x-forms.input type="text" name="name_en" headline="Name EN" value="{{  $news['name_en'] ?? old('name_en') }}" />
-                            <x-forms.input type="text" name="slug_ka" headline="Slug KA (optional)" value="{{  $news['slug_ka'] ?? old('slug_ka') }}" />
-                            <x-forms.input type="text" name="slug_en" headline="Slug EN (optional)" value="{{  $news['slug_en'] ?? old('slug_en') }}" />
-                            <x-forms.input type="text" name="meta_title_ka" headline="Meta Title KA" value="{{  $news['meta_title_ka'] ?? old('meta_title_ka') }}" />
-                            <x-forms.input type="text" name="meta_title_en" headline="Meta Title EN" value="{{  $news['meta_title_en'] ?? old('meta_title_en') }}" />
-                            <x-forms.input type="text" name="meta_description_ka" headline="Meta Description KA" value="{{  $news['meta_description_ka'] ?? old('meta_description_ka') }}" />
-                            <x-forms.input type="text" name="meta_description_en" headline="Meta Description EN" value="{{  $news['meta_description_en'] ?? old('meta_description_en') }}" />
+                                    @if(isset($news))
+                                        <div class="form-group">
+                                            <label>Short Content</label>
+                                            {!! $news->trix('short_content_ka') !!}
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Content</label>
+                                            {!! $news->trix('content_ka') !!}
+                                        </div>
+                                    @else
+                                        <div class="form-group">
+                                            <label>Short Content</label>
+                                            @trix(\App\Models\News::class, 'short_content_ka')
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Content</label>
+                                            @trix(\App\Models\News::class, 'content_ka')
+                                        </div>
+                                    @endif
+                                </x-slot>
 
-                            
+                                <x-slot name="en">
+                                    <x-forms.input type="text" name="name_en" headline="Name" value="{{  $news['name_en'] ?? old('name_en') }}" />
+                                    <x-forms.input type="text" name="slug_en" headline="Slug (optional)" value="{{  $news['slug_en'] ?? old('slug_en') }}" />
+
+                                    <x-forms.seo-og-section locale="en" :record="$news ?? null" />
+
+                                    @if(isset($news))
+                                        <div class="form-group">
+                                            <label>Short Content</label>
+                                            {!! $news->trix('short_content_en') !!}
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Content</label>
+                                            {!! $news->trix('content_en') !!}
+                                        </div>
+                                    @else
+                                        <div class="form-group">
+                                            <label>Short Content</label>
+                                            @trix(\App\Models\News::class, 'short_content_en')
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Content</label>
+                                            @trix(\App\Models\News::class, 'content_en')
+                                        </div>
+                                    @endif
+                                </x-slot>
+                            </x-forms.locale-tabs>
 
                             <div class="pl-lg-4">
                                 <div class="fileinput fileinput-new text-center {{ $errors->has('image') ? ' has-danger' : '' }}" data-provides="fileinput">
@@ -60,48 +103,6 @@
 
                                 <br><br>
 
-                                @if(isset($news))
-                                    <div class="form-group">
-                                        <label>Short Content KA</label>
-                                        {!! $news->trix('short_content_ka') !!}
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Short Content EN</label>
-                                        {!! $news->trix('short_content_en') !!}
-                                    </div>
-                                    <br>
-                                    <div class="form-group">
-                                        <label>Content KA</label>
-                                        {!! $news->trix('content_ka') !!}
-                                     </div>
-                                     <div class="form-group">
-                                        <label>Content EN</label>
-                                        {!! $news->trix('content_en') !!}
-                                    </div>
-                                @else
-                                    <div class="form-group">
-                                        <label>Short Content KA</label>
-                                        @trix(\App\Models\News::class, 'short_content_ka')
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Short Content EN</label>
-                                        @trix(\App\Models\News::class, 'short_content_en')
-                                    </div>
-                                    <br>
-                                    <div class="form-group">
-                                        <label>Content KA</label>
-                                        @trix(\App\Models\News::class, 'content_ka')
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Content EN</label>
-                                        @trix(\App\Models\News::class, 'content_en')
-                                    </div>
-                                @endif
-                               
-                               
-                               
-
-                                <br>
                                 <h3>status</h3>
                                 <div class="form-check form-check-radio">
                                     <label class="form-check-label">

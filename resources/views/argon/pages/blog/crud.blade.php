@@ -18,14 +18,61 @@
 
                             <h6 class="heading-small text-muted mb-4">{{ __('Edit Blade') }}</h6>
 
-                            <x-forms.input type="text" name="name_ka" headline="Name KA" value="{{  $blog['name_ka'] ?? old('name_ka') }}" />
-                            <x-forms.input type="text" name="name_en" headline="Name EN" value="{{  $blog['name_en'] ?? old('name_en') }}" />
-                            <x-forms.input type="text" name="slug_ka" headline="Slug KA (optional)" value="{{  $blog['slug_ka'] ?? old('slug_ka') }}" />
-                            <x-forms.input type="text" name="slug_en" headline="Slug EN (optional)" value="{{  $blog['slug_en'] ?? old('slug_en') }}" />
-                            <x-forms.input type="text" name="meta_title_ka" headline="Meta Title KA" value="{{  $blog['meta_title_ka'] ?? old('meta_title_ka') }}" />
-                            <x-forms.input type="text" name="meta_title_en" headline="Meta Title EN" value="{{  $blog['meta_title_en'] ?? old('meta_title_en') }}" />
-                            <x-forms.input type="text" name="meta_description_ka" headline="Meta Description KA" value="{{  $blog['meta_description_ka'] ?? old('meta_description_ka') }}" />
-                            <x-forms.input type="text" name="meta_description_en" headline="Meta Description EN" value="{{  $blog['meta_description_en'] ?? old('meta_description_en') }}" />
+                            <x-forms.locale-tabs id="blog-locale">
+                                <x-slot name="ka">
+                                    <x-forms.input type="text" name="name_ka" headline="Name" value="{{  $blog['name_ka'] ?? old('name_ka') }}" />
+                                    <x-forms.input type="text" name="slug_ka" headline="Slug (optional)" value="{{  $blog['slug_ka'] ?? old('slug_ka') }}" />
+
+                                    <x-forms.seo-og-section locale="ka" :record="$blog ?? null" />
+
+                                    @if(isset($blog))
+                                        <div class="form-group">
+                                            <label>Short Content</label>
+                                            {!! $blog->trix('short_content_ka') !!}
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Content</label>
+                                            {!! $blog->trix('content_ka') !!}
+                                        </div>
+                                    @else
+                                        <div class="form-group">
+                                            <label>Short Content</label>
+                                            @trix(\App\Models\Blog::class, 'short_content_ka')
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Content</label>
+                                            @trix(\App\Models\Blog::class, 'content_ka')
+                                        </div>
+                                    @endif
+                                </x-slot>
+
+                                <x-slot name="en">
+                                    <x-forms.input type="text" name="name_en" headline="Name" value="{{  $blog['name_en'] ?? old('name_en') }}" />
+                                    <x-forms.input type="text" name="slug_en" headline="Slug (optional)" value="{{  $blog['slug_en'] ?? old('slug_en') }}" />
+
+                                    <x-forms.seo-og-section locale="en" :record="$blog ?? null" />
+
+                                    @if(isset($blog))
+                                        <div class="form-group">
+                                            <label>Short Content</label>
+                                            {!! $blog->trix('short_content_en') !!}
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Content</label>
+                                            {!! $blog->trix('content_en') !!}
+                                        </div>
+                                    @else
+                                        <div class="form-group">
+                                            <label>Short Content</label>
+                                            @trix(\App\Models\Blog::class, 'short_content_en')
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Content</label>
+                                            @trix(\App\Models\Blog::class, 'content_en')
+                                        </div>
+                                    @endif
+                                </x-slot>
+                            </x-forms.locale-tabs>
 
                             <div class="pl-lg-4">
                                 <div class="fileinput fileinput-new text-center {{ $errors->has('image') ? ' has-danger' : '' }}" data-provides="fileinput">
@@ -56,45 +103,6 @@
 
                                 <br><br>
 
-                                @if(isset($blog))
-                                    <div class="form-group">
-                                        <label>Short Content KA</label>
-                                        {!! $blog->trix('short_content_ka') !!}
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Short Content EN</label>
-                                        {!! $blog->trix('short_content_en') !!}
-                                    </div>
-                                    <br>
-                                    <div class="form-group">
-                                        <label>Content KA</label>
-                                        {!! $blog->trix('content_ka') !!}
-                                     </div>
-                                     <div class="form-group">
-                                        <label>Content EN</label>
-                                        {!! $blog->trix('content_en') !!}
-                                    </div>
-                                @else
-                                    <div class="form-group">
-                                        <label>Short Content KA</label>
-                                        @trix(\App\Models\Blog::class, 'short_content_ka')
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Short Content EN</label>
-                                        @trix(\App\Models\Blog::class, 'short_content_en')
-                                    </div>
-                                    <br>
-                                    <div class="form-group">
-                                        <label>Content KA</label>
-                                        @trix(\App\Models\Blog::class, 'content_ka')
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Content EN</label>
-                                        @trix(\App\Models\Blog::class, 'content_en')
-                                    </div>
-                                @endif
-
-                                <br>
                                 <h3>status</h3>
                                 <div class="form-check form-check-radio">
                                     <label class="form-check-label">
