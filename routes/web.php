@@ -13,6 +13,8 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\ProjectsController;
 use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\TranslationController;
+use App\Http\Controllers\SiteSeoController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 Route::get('/', function () {
@@ -32,6 +34,11 @@ Route::group(['middleware' => 'auth', 'prefix' => 'argon'], function () {
     Route::resource('services', ServicesController::class);
     Route::resource('news', NewsController::class);
     Route::resource('blog', BlogController::class);
+    Route::get('translations', [TranslationController::class, 'index'])->name('translations.index');
+    Route::get('translations/{group}/edit', [TranslationController::class, 'edit'])->name('translations.edit');
+    Route::put('translations/{group}', [TranslationController::class, 'update'])->name('translations.update');
+    Route::get('site-seo', [SiteSeoController::class, 'edit'])->name('site-seo.edit');
+    Route::put('site-seo', [SiteSeoController::class, 'update'])->name('site-seo.update');
     Route::get('homepage', [HomePageController::class, 'index'])->name('homepage');
     Route::post('homepage', [HomePageController::class, 'mainslider'])->name('homepage_mainslider');
     Route::post('storeslider', [HomePageController::class, 'store'])->name('storeslider');

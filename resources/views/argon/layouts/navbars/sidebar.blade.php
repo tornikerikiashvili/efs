@@ -162,6 +162,18 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('translations.index') }}">
+                      <i class="ni ni-world-2 text-info"></i>
+                      <span class="nav-link-text">Translations</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('site-seo.edit') }}">
+                      <i class="ni ni-badge text-yellow"></i>
+                      <span class="nav-link-text">SEO & OG</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="ni ni-circle-08 text-pink"></i> {{ __('Register') }}
                     </a>

@@ -207,7 +207,29 @@ function seo_absolute_url(?string $url): ?string
     return url($url);
 }
 
-function default_page_seo(): array
+function seo_translation_value(string $page, string $field): ?string
+{
+    $key = "seo.{$page}.{$field}";
+    $value = __($key);
+
+    return $value === $key ? null : $value;
+}
+
+function seo_route_page_map(): array
+{
+    return [
+        'homepagefront' => 'home',
+        'about' => 'about',
+        'sub-about' => 'about',
+        'services' => 'services',
+        'projects' => 'projects',
+        'news' => 'news',
+        'blog' => 'blog',
+        'contact' => 'contact',
+    ];
+}
+
+function seo_hardcoded_fallback(): array
 {
     return [
         'title' => 'EFS - ' . __('homepage.first_text_head'),
@@ -217,6 +239,65 @@ function default_page_seo(): array
         'og_image' => url('/images/Logo-fb-en.png?6'),
         'og_type' => 'website',
     ];
+}
+
+function seo_site_default_title(): string
+{
+    return seo_translation_value('default', 'title') ?: seo_hardcoded_fallback()['title'];
+}
+
+function seo_compound_title(?string $primary): string
+{
+    $siteDefault = seo_site_default_title();
+    $primary = trim((string) $primary);
+
+    if ($primary === '' || $primary === $siteDefault) {
+        return $siteDefault;
+    }
+
+    return $primary.' | '.$siteDefault;
+}
+
+function seo_from_translation_page(string $page, array $fallback): array
+{
+    $pageTitle = seo_translation_value($page, 'title');
+    $description = seo_translation_value($page, 'description');
+    $ogTitle = seo_translation_value($page, 'og_title');
+    $ogDescription = seo_translation_value($page, 'og_description');
+    $ogImage = seo_translation_value($page, 'og_image');
+
+    if ($page === 'default') {
+        $title = $pageTitle ?: $fallback['title'];
+    } elseif ($pageTitle) {
+        $title = seo_compound_title($pageTitle);
+    } else {
+        $title = $fallback['title'];
+    }
+
+    return [
+        'title' => $title,
+        'description' => $description ?: $fallback['description'],
+        'og_title' => $ogTitle ?: $pageTitle ?: $fallback['og_title'],
+        'og_description' => $ogDescription ?: $description ?: $fallback['og_description'],
+        'og_image' => seo_absolute_url($ogImage) ?: $fallback['og_image'],
+        'og_type' => 'website',
+    ];
+}
+
+function seo_for_route(?string $routeName): ?array
+{
+    $page = seo_route_page_map()[$routeName] ?? null;
+
+    if ($page === null) {
+        return null;
+    }
+
+    return seo_from_translation_page($page, default_page_seo());
+}
+
+function default_page_seo(): array
+{
+    return seo_from_translation_page('default', seo_hardcoded_fallback());
 }
 
 function seo_from_entity(Model $entity): array
@@ -246,9 +327,10 @@ function seo_from_entity(Model $entity): array
     }
 
     $defaults = default_page_seo();
+    $primaryTitle = trim($metaTitle ?: $name ?: '');
 
     return [
-        'title' => $metaTitle ?: $name ?: $defaults['title'],
+        'title' => $primaryTitle !== '' ? seo_compound_title($primaryTitle) : $defaults['title'],
         'description' => $description ?: $defaults['description'],
         'og_title' => $ogTitle ?: $metaTitle ?: $name ?: $defaults['og_title'],
         'og_description' => seo_plain_text($ogDescription)
@@ -270,7 +352,13 @@ function seo_from_entity(Model $entity): array
  */
 function page_seo(?Model $entity = null, array $overrides = []): array
 {
-    $seo = $entity ? seo_from_entity($entity) : default_page_seo();
+    if ($entity) {
+        $seo = seo_from_entity($entity);
+    } elseif ($overrides !== []) {
+        $seo = default_page_seo();
+    } else {
+        $seo = seo_for_route(request()->route()?->getName()) ?? default_page_seo();
+    }
 
     foreach ($overrides as $key => $value) {
         if ($value !== null && $value !== '') {
