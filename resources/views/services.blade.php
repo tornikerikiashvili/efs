@@ -195,6 +195,10 @@
             block: "center"
         });
 
+        if (window.location.search.indexOf('_=') !== -1) {
+            history.replaceState(null, '', window.location.pathname + window.location.hash);
+        }
+
         // $('html, body').animate({
         //     scrollTop: scrollOptional
         // }, 1000);

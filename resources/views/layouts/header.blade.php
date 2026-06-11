@@ -357,3 +357,19 @@
             </div>
         </div>
     </header>
+    <script>
+        document.addEventListener('click', function(e) {
+            var link = e.target.closest('.dropdown-menu a[href*="services#"]');
+            if (!link) {
+                return;
+            }
+
+            var url = new URL(link.href, window.location.origin);
+            if (window.location.pathname.replace(/\/$/, '') !== url.pathname.replace(/\/$/, '')) {
+                return;
+            }
+
+            e.preventDefault();
+            window.location.href = url.pathname + '?_=' + Date.now() + url.hash;
+        });
+    </script>
