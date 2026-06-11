@@ -4,18 +4,26 @@
 
 <head>
 
+    @php
+        $pageSeo = page_seo(
+            $seoEntity ?? $localeSwitchEntity ?? null,
+            $seo ?? []
+        );
+    @endphp
+
     <meta charset="utf-8">
     <meta name="robots" content="noindex">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>EFS - ექსპერტები გადაწყვეტილებებისთვის</title>
-    <meta name="description" content="Multipurpose HTML template.">
+    <title>{{ e($pageSeo['title']) }}</title>
 
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="საკონსულტაციო კომპანია - HSE & CONSTRUCTION QUALITY" />
-    <meta property="og:description" content="{{ __('homepage.first_text') }}" />
-    {{-- <meta property="og:image" content="{{url('/')}}/images/Logo-fb-{{app()->getLocale()}}.png?4" /> --}}
-    <meta property="og:image" content="{{ url('/') }}/images/Logo-fb-en.png?6" />
+    <meta name="title" content="{{ e($pageSeo['title']) }}">
+    <meta name="description" content="{{ e($pageSeo['description']) }}">
+
+    <meta property="og:type" content="{{ e($pageSeo['og_type']) }}" />
+    <meta property="og:title" content="{{ e($pageSeo['og_title']) }}" />
+    <meta property="og:description" content="{{ e($pageSeo['og_description']) }}" />
+    <meta property="og:image" content="{{ e($pageSeo['og_image']) }}" />
 
     <script src="/js/jquery.min.js"></script>
     <script src="/js/custom-anim.js"></script>

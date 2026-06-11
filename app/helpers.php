@@ -178,3 +178,109 @@ function localized_switch_url(string $targetLocale, ?Model $entity = null): stri
 
     return LaravelLocalization::getLocalizedURL($targetLocale);
 }
+
+function seo_plain_text(?string $text, int $limit = 160): ?string
+{
+    if ($text === null || $text === '') {
+        return null;
+    }
+
+    $text = trim(preg_replace('/\s+/', ' ', strip_tags($text)));
+
+    if ($text === '') {
+        return null;
+    }
+
+    return Str::limit($text, $limit, '...');
+}
+
+function seo_absolute_url(?string $url): ?string
+{
+    if ($url === null || $url === '') {
+        return null;
+    }
+
+    if (Str::startsWith($url, ['http://', 'https://'])) {
+        return $url;
+    }
+
+    return url($url);
+}
+
+function default_page_seo(): array
+{
+    return [
+        'title' => 'EFS - ' . __('homepage.first_text_head'),
+        'description' => __('homepage.first_text'),
+        'og_title' => __('homepage.first_text_head'),
+        'og_description' => __('homepage.first_text'),
+        'og_image' => url('/images/Logo-fb-en.png?6'),
+        'og_type' => 'website',
+    ];
+}
+
+function seo_from_entity(Model $entity): array
+{
+    $locale = app()->getLocale();
+    $metaTitle = $entity->{'meta_title_' . $locale} ?? null;
+    $metaDescription = $entity->{'meta_description_' . $locale} ?? null;
+    $ogTitle = $entity->{'og_title_' . $locale} ?? null;
+    $ogDescription = $entity->{'og_description_' . $locale} ?? null;
+    $name = $entity->{'name_' . $locale} ?? null;
+
+    $contentFallback = null;
+
+    if (method_exists($entity, 'trixRender')) {
+        $contentFallback = $entity->trixRender('short_content_' . $locale)
+            ?: $entity->trixRender('content_' . $locale);
+    }
+
+    $description = seo_plain_text($metaDescription)
+        ?: seo_plain_text($ogDescription)
+        ?: seo_plain_text($contentFallback);
+
+    $ogImage = null;
+
+    if (method_exists($entity, 'getFirstMediaUrl')) {
+        $ogImage = seo_absolute_url($entity->getFirstMediaUrl('main') ?: null);
+    }
+
+    $defaults = default_page_seo();
+
+    return [
+        'title' => $metaTitle ?: $name ?: $defaults['title'],
+        'description' => $description ?: $defaults['description'],
+        'og_title' => $ogTitle ?: $metaTitle ?: $name ?: $defaults['og_title'],
+        'og_description' => seo_plain_text($ogDescription)
+            ?: seo_plain_text($metaDescription)
+            ?: $description
+            ?: $defaults['og_description'],
+        'og_image' => $ogImage ?: $defaults['og_image'],
+        'og_type' => 'article',
+    ];
+}
+
+/**
+ * Resolve page SEO/OG tags from a content entity, explicit overrides, or site defaults.
+ *
+ * Usage:
+ *   page_seo($newsItem)
+ *   page_seo(null, ['title' => 'Contact', 'description' => '...'])
+ *   page_seo($entity, ['og_type' => 'website'])
+ */
+function page_seo(?Model $entity = null, array $overrides = []): array
+{
+    $seo = $entity ? seo_from_entity($entity) : default_page_seo();
+
+    foreach ($overrides as $key => $value) {
+        if ($value !== null && $value !== '') {
+            $seo[$key] = $value;
+        }
+    }
+
+    if (isset($seo['og_image'])) {
+        $seo['og_image'] = seo_absolute_url($seo['og_image']) ?: default_page_seo()['og_image'];
+    }
+
+    return $seo;
+}
