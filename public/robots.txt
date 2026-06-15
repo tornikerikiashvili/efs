@@ -1,2 +1,9 @@
 User-agent: *
-Disallow:
+Disallow: /argon/
+Disallow: /argon-login
+Disallow: /login
+Disallow: /register
+Disallow: /password/
+Disallow: /api/
+
+Sitemap: https://www.efs.ge/sitemap.xml

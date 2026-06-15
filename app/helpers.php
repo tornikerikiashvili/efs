@@ -108,7 +108,7 @@ function resolve_localized_content(string $modelClass, string $segment)
 
     $canonicalSlug = $item->slugForLocale($locale);
 
-    if ($canonicalSlug !== '' && $canonicalSlug !== $segment && $routeName) {
+    if ($canonicalSlug !== '' && mb_strtolower($canonicalSlug) !== mb_strtolower($segment) && $routeName) {
         return redirect()->route($routeName, ['slug' => $canonicalSlug], 301);
     }
 

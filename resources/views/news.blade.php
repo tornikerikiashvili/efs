@@ -1,4 +1,15 @@
 @include('layouts.header',['services' => $cat = App\Models\Services::select('id','name_'.app()->getLocale())->where('status',1)->get()])
+<div class="header-base">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="title-base text-left">
+                    <h1>{{ __('menu.news') }}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="section-empty">
     <div class="container content">
         <div class="row">

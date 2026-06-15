@@ -15,7 +15,10 @@ use App\Http\Controllers\ProjectsController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\TranslationController;
 use App\Http\Controllers\SiteSeoController;
+use App\Http\Controllers\SitemapController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+
+Route::get('sitemap.xml', SitemapController::class)->name('sitemap');
 
 Route::get('/', function () {
     return redirect()->route('homepagefront', [], 301);
