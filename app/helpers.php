@@ -123,7 +123,7 @@ function localized_switch_url(string $targetLocale, ?Model $entity = null): stri
     $route = request()->route();
 
     if (! $route) {
-        return LaravelLocalization::getLocalizedURL($targetLocale);
+        return localized_url($targetLocale);
     }
 
     $slugRoutes = [
@@ -159,9 +159,7 @@ function localized_switch_url(string $targetLocale, ?Model $entity = null): stri
             $targetSlug = $item->slugForLocale($targetLocale);
 
             if ($targetSlug !== '') {
-                $url = route($routeName, ['slug' => $targetSlug], false);
-
-                return LaravelLocalization::getLocalizedURL($targetLocale, $url);
+                return localized_url($targetLocale, route($routeName, ['slug' => $targetSlug], false));
             }
         }
 
@@ -172,11 +170,86 @@ function localized_switch_url(string $targetLocale, ?Model $entity = null): stri
         ];
 
         if (isset($indexRoutes[$routeName])) {
-            return LaravelLocalization::getLocalizedURL($targetLocale, route($indexRoutes[$routeName], [], false));
+            return localized_url($targetLocale, route($indexRoutes[$routeName], [], false));
         }
     }
 
-    return LaravelLocalization::getLocalizedURL($targetLocale);
+    if ($routeName) {
+        $parameters = collect($route->parameters())->except(['locale'])->all();
+
+        return localized_url($targetLocale, route($routeName, $parameters, false));
+    }
+
+    return localized_url($targetLocale);
+}
+
+/**
+ * Build a localized absolute URL using the site's real URL structure.
+ * Georgian (default) has no /ka prefix; English uses /en.
+ */
+function localized_url(string $locale, ?string $path = null): string
+{
+    $url = $path === null
+        ? LaravelLocalization::getLocalizedURL($locale)
+        : LaravelLocalization::getLocalizedURL($locale, $path);
+
+    return seo_canonical_absolute_url($url);
+}
+
+/**
+ * HTML lang attribute value for the active or given locale.
+ */
+function html_lang_attribute(?string $locale = null): string
+{
+    return ($locale ?? app()->getLocale()) === 'en' ? 'en-GE' : 'ka';
+}
+
+/**
+ * Absolute canonical URL for a localized page.
+ */
+function localized_page_url(string $locale, ?Model $entity = null): string
+{
+    return localized_switch_url($locale, $entity);
+}
+
+/**
+ * Canonical URL for the current page.
+ */
+function canonical_url(?Model $entity = null): string
+{
+    return localized_page_url(app()->getLocale(), $entity);
+}
+
+/**
+ * hreflang alternate links for the current page (ka, en, x-default).
+ *
+ * @return list<array{hreflang: string, href: string}>
+ */
+function hreflang_alternates(?Model $entity = null): array
+{
+    return [
+        ['hreflang' => 'ka', 'href' => localized_page_url('ka', $entity)],
+        ['hreflang' => 'en', 'href' => localized_page_url('en', $entity)],
+        ['hreflang' => 'x-default', 'href' => localized_page_url('ka', $entity)],
+    ];
+}
+
+/**
+ * Build an absolute URL for canonical/hreflang using the current request host.
+ */
+function seo_canonical_absolute_url(string $url): string
+{
+    if (! Str::startsWith($url, ['http://', 'https://'])) {
+        $url = url($url);
+    }
+
+    if (app()->runningInConsole()) {
+        return $url;
+    }
+
+    $path = parse_url($url, PHP_URL_PATH) ?: '/';
+
+    return request()->getSchemeAndHttpHost() . $path;
 }
 
 function seo_plain_text(?string $text, int $limit = 160): ?string

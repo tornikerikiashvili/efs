@@ -1,26 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ html_lang_attribute() }}">
 <!--<![endif]-->
 
 <head>
 
     @php
-        $pageSeo = page_seo(
-            $seoEntity ?? $localeSwitchEntity ?? null,
-            $seo ?? []
-        );
+        $seoModel = $seoEntity ?? $localeSwitchEntity ?? null;
+        $pageSeo = page_seo($seoModel, $seo ?? []);
+        $canonical = canonical_url($seoModel);
+        $hreflangLinks = hreflang_alternates($seoModel);
     @endphp
 
     <meta charset="utf-8">
-    <meta name="robots" content="noindex">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ e($pageSeo['title']) }}</title>
+
+    <link rel="canonical" href="{{ e($canonical) }}">
+    @foreach ($hreflangLinks as $alternate)
+        <link rel="alternate" hreflang="{{ $alternate['hreflang'] }}" href="{{ e($alternate['href']) }}">
+    @endforeach
 
     <meta name="title" content="{{ e($pageSeo['title']) }}">
     <meta name="description" content="{{ e($pageSeo['description']) }}">
 
     <meta property="og:type" content="{{ e($pageSeo['og_type']) }}" />
+    <meta property="og:url" content="{{ e($canonical) }}" />
     <meta property="og:title" content="{{ e($pageSeo['og_title']) }}" />
     <meta property="og:description" content="{{ e($pageSeo['og_description']) }}" />
     <meta property="og:image" content="{{ e($pageSeo['og_image']) }}" />

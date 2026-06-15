@@ -20,6 +20,11 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 Route::get('sitemap.xml', SitemapController::class)->name('sitemap');
 
+Route::redirect('ka', '/', 301);
+Route::get('ka/{path}', function (string $path) {
+    return redirect('/'.ltrim($path, '/'), 301);
+})->where('path', '.*');
+
 Route::get('/', function () {
     return redirect()->route('homepagefront', [], 301);
 });

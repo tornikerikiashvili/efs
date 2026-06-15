@@ -26,10 +26,9 @@ class SitemapGeneratorTest extends TestCase
         $urls = collect((new SitemapGenerator())->urls())->pluck('loc')->all();
         $combined = implode("\n", $urls);
 
-        $this->assertStringContainsString(route('homepagefront', [], false), $combined);
-        $this->assertStringContainsString(route('projects', [], false), $combined);
-        $this->assertStringContainsString(route('services', [], false), $combined);
-        $this->assertStringContainsString(route('news', [], false), $combined);
-        $this->assertStringContainsString(route('blog', [], false), $combined);
+        $this->assertStringContainsString('/about', $combined);
+        $this->assertStringContainsString('/en/', $combined);
+        $this->assertStringContainsString('/services', $combined);
+        $this->assertStringNotContainsString('/ka/', $combined);
     }
 }

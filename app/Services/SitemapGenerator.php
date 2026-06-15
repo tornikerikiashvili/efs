@@ -156,7 +156,7 @@ class SitemapGenerator
         app()->setLocale($locale);
 
         try {
-            return LaravelLocalization::getLocalizedURL($locale, route($routeName, $params, false));
+            return localized_url($locale, route($routeName, $params, false));
         } finally {
             app()->setLocale($previousLocale);
         }
