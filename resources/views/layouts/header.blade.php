@@ -30,6 +30,10 @@
     <meta property="og:description" content="{{ e($pageSeo['og_description']) }}" />
     <meta property="og:image" content="{{ e($pageSeo['og_image']) }}" />
 
+    @if ($schemaJson = schema_json_ld($seoModel, $pageSeo))
+        <script type="application/ld+json">{!! $schemaJson !!}</script>
+    @endif
+
     <script src="/js/jquery.min.js"></script>
     <script src="/js/custom-anim.js"></script>
     <link rel="stylesheet" href="/css/bootstrap.css">

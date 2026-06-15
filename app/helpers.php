@@ -319,6 +319,11 @@ function seo_site_default_title(): string
     return seo_translation_value('default', 'title') ?: seo_hardcoded_fallback()['title'];
 }
 
+function seo_site_default_description(): string
+{
+    return seo_translation_value('default', 'description') ?: seo_hardcoded_fallback()['description'];
+}
+
 function seo_compound_title(?string $primary): string
 {
     $siteDefault = seo_site_default_title();
@@ -444,4 +449,12 @@ function page_seo(?Model $entity = null, array $overrides = []): array
     }
 
     return $seo;
+}
+
+/**
+ * JSON-LD schema markup for the current page.
+ */
+function schema_json_ld(?Model $entity = null, ?array $pageSeo = null): ?string
+{
+    return app(\App\Services\SchemaMarkup::class)->toJson($entity, $pageSeo);
 }
