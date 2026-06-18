@@ -9,8 +9,7 @@
                     <div class="card-header border-0">
                         <h3 class="mb-0">SEO & OG</h3>
                         <p class="text-muted mb-0 mt-2">
-                            Site-wide meta and Open Graph settings per page. Page meta titles are shown as
-                            <code>Page title | Site default title</code>. Empty fields fall back to the site default.
+                            Enter exact meta and Open Graph values for each page. Titles are used as written.
                         </p>
                     </div>
                     <div class="card-body">

@@ -314,26 +314,9 @@ function seo_hardcoded_fallback(): array
     ];
 }
 
-function seo_site_default_title(): string
-{
-    return seo_translation_value('default', 'title') ?: seo_hardcoded_fallback()['title'];
-}
-
 function seo_site_default_description(): string
 {
     return seo_translation_value('default', 'description') ?: seo_hardcoded_fallback()['description'];
-}
-
-function seo_compound_title(?string $primary): string
-{
-    $siteDefault = seo_site_default_title();
-    $primary = trim((string) $primary);
-
-    if ($primary === '' || $primary === $siteDefault) {
-        return $siteDefault;
-    }
-
-    return $primary.' | '.$siteDefault;
 }
 
 function seo_from_translation_page(string $page, array $fallback): array
@@ -344,13 +327,7 @@ function seo_from_translation_page(string $page, array $fallback): array
     $ogDescription = seo_translation_value($page, 'og_description');
     $ogImage = seo_translation_value($page, 'og_image');
 
-    if ($page === 'default') {
-        $title = $pageTitle ?: $fallback['title'];
-    } elseif ($pageTitle) {
-        $title = seo_compound_title($pageTitle);
-    } else {
-        $title = $fallback['title'];
-    }
+    $title = trim((string) ($pageTitle ?: $fallback['title']));
 
     return [
         'title' => $title,
@@ -408,7 +385,7 @@ function seo_from_entity(Model $entity): array
     $primaryTitle = trim($metaTitle ?: $name ?: '');
 
     return [
-        'title' => $primaryTitle !== '' ? seo_compound_title($primaryTitle) : $defaults['title'],
+        'title' => $primaryTitle !== '' ? $primaryTitle : $defaults['title'],
         'description' => $description ?: $defaults['description'],
         'og_title' => $ogTitle ?: $metaTitle ?: $name ?: $defaults['og_title'],
         'og_description' => seo_plain_text($ogDescription)

@@ -10,7 +10,6 @@ class SiteSeoManager
     public const LOCALES = ['ka', 'en'];
 
     public const PAGES = [
-        'default' => 'Site default (fallback)',
         'home' => 'Homepage',
         'about' => 'About',
         'services' => 'Services',

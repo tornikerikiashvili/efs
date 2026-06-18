@@ -27,6 +27,8 @@ return [
     ],
     'allrights' => 'All Right Deserved ©',
     'menu' => 'Menu',
-    'read_more' => 'Read More'
+    'read_more' => 'Read More',
+    'error_404_message' => 'The page you are looking for could not be found.',
+    'error_404_home' => 'Go to homepage',
 
 ];

@@ -1,15 +1,8 @@
 <?php
 
 return [
-    'default' => [
-        'title' => 'EFS - ექსპერტები გადაწყვეტილებებისთვის',
-        'description' => 'გამოცდილების გაზიარებით, EXPERTS FOR SOLUTIONS ბიზნეს სექტორში საერთაშორისო მიდგომების დამკვიდრებას უწყობს ხელს.',
-        'og_title' => 'ექსპერტები გადაწყვეტილებებისთვის',
-        'og_description' => 'გამოცდილების გაზიარებით, EXPERTS FOR SOLUTIONS ბიზნეს სექტორში საერთაშორისო მიდგომების დამკვიდრებას უწყობს ხელს.',
-        'og_image' => '/images/Logo-fb-en.png?6',
-    ],
     'home' => [
-        'title' => 'მთავარი გვერდი',
+        'title' => 'მთავარი გვერდი | asfasfasf',
         'description' => '',
         'og_title' => '',
         'og_description' => '',

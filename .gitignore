@@ -29,3 +29,10 @@ Archive.zip
 public/error_log
 error_log
 .DS_Store
+
+# Admin-edited translations & SEO (saved from the panel)
+/resources/lang/*/menu.php
+/resources/lang/*/other.php
+/resources/lang/*/about.php
+/resources/lang/*/homepage.php
+/resources/lang/*/seo.php

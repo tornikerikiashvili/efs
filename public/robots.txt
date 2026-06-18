@@ -6,4 +6,4 @@ Disallow: /register
 Disallow: /password/
 Disallow: /api/
 
-Sitemap: https://www.efs.ge/sitemap.xml
+Sitemap: https://efs.ge/sitemap.xml
