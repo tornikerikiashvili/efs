@@ -2,7 +2,7 @@
 
 return [
     'about' => [
-        'about_us' => 'ჩვენ შესახებss',
+        'about_us' => 'ჩვენ შესახებ',
         'company' => 'კომპანია',
         'goal' => 'მიზანი',
         'mission' => 'მისია',

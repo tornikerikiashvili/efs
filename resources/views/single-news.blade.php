@@ -22,9 +22,9 @@
                     <img src="{{$single->getFirstMediaUrl('main')}}" alt="">
                 </a>
                 <hr class="space m">
-                <p>
-                    {!!$single->trixRender('content_'.app()->getLocale())!!}
-                </p>
+                <div class="rich-text-content">
+                    {!! $single->trixRender('content_'.app()->getLocale()) !!}
+                </div>
                 <hr class="space visible-sm">
             </div>
             <div class="col-md-4 col-sm-12 boxed-inverse shadow-2">

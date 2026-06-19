@@ -32,7 +32,9 @@
                         <div class="image">
                             <img src="{{($service->getFirstMediaUrl('main')) ? $service->getFirstMediaUrl('main') : ''}}" alt="">
                         </div>
-                        {!!$service->trixRender('content_'.app()->getLocale())!!}
+                        <div class="rich-text-content">
+                            {!! $service->trixRender('content_'.app()->getLocale()) !!}
+                        </div>
                     </div>
                 </div>
             </div>

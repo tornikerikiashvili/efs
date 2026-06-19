@@ -2,7 +2,7 @@
 
 @section('content')
     @include('argon.layouts.headers.cards')
-    @trixassets
+    <x-rich-editor-assets />
     <div class="container-fluid mt--6">
         <div class="row">
             <div class="col-xl-8 order-xl-1">
@@ -25,17 +25,7 @@
 
                                     <x-forms.seo-og-section locale="ka" :record="$project ?? null" />
 
-                                    @if(isset($project))
-                                        <div class="form-group">
-                                            <label>Content</label>
-                                            {!! $project->trix('content_ka') !!}
-                                        </div>
-                                    @else
-                                        <div class="form-group">
-                                            <label>Content</label>
-                                            @trix(\App\Models\Projects::class, 'content_ka')
-                                        </div>
-                                    @endif
+                                    <x-forms.rich-editor :model="\App\Models\Projects::class" field="content_ka" label="Content" :height="400" :record="$project ?? null" />
                                 </x-slot>
 
                                 <x-slot name="en">
@@ -44,17 +34,7 @@
 
                                     <x-forms.seo-og-section locale="en" :record="$project ?? null" />
 
-                                    @if(isset($project))
-                                        <div class="form-group">
-                                            <label>Content</label>
-                                            {!! $project->trix('content_en') !!}
-                                        </div>
-                                    @else
-                                        <div class="form-group">
-                                            <label>Content</label>
-                                            @trix(\App\Models\Projects::class, 'content_en')
-                                        </div>
-                                    @endif
+                                    <x-forms.rich-editor :model="\App\Models\Projects::class" field="content_en" label="Content" :height="400" :record="$project ?? null" />
                                 </x-slot>
                             </x-forms.locale-tabs>
 
@@ -117,13 +97,5 @@
                 </div>
             </div>
         </div>
-    @endsection
-    <!-- Initialize Quill editor -->
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-    
- 
-
-    @push('js')
-        <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.min.js"></script>
-        <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.extension.js"></script>
-    @endpush
+    </div>
+@endsection

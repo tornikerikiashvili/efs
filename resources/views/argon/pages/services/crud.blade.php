@@ -2,7 +2,7 @@
 
 @section('content')
     @include('argon.layouts.headers.cards')
-    @trixassets
+    <x-rich-editor-assets />
     <div class="container-fluid mt--6">
         <div class="row">
             <div class="col-xl-8 order-xl-1">
@@ -27,25 +27,8 @@
 
                                     <x-forms.seo-og-section locale="ka" :record="$service ?? null" />
 
-                                    @if (isset($service))
-                                        <div class="form-group">
-                                            <label>Short Content</label>
-                                            {!! $service->trix('short_content_ka') !!}
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Full Content</label>
-                                            {!! $service->trix('content_ka') !!}
-                                        </div>
-                                    @else
-                                        <div class="form-group">
-                                            <label>Short Content</label>
-                                            @trix(\App\Models\Service::class, 'short_content_ka')
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Full Content</label>
-                                            @trix(\App\Models\Service::class, 'content_ka')
-                                        </div>
-                                    @endif
+                                    <x-forms.rich-editor :model="\App\Models\Services::class" field="short_content_ka" label="Short Content" :height="200" :record="$service ?? null" />
+                                    <x-forms.rich-editor :model="\App\Models\Services::class" field="content_ka" label="Full Content" :height="400" :record="$service ?? null" />
                                 </x-slot>
 
                                 <x-slot name="en">
@@ -56,25 +39,8 @@
 
                                     <x-forms.seo-og-section locale="en" :record="$service ?? null" />
 
-                                    @if (isset($service))
-                                        <div class="form-group">
-                                            <label>Short Content</label>
-                                            {!! $service->trix('short_content_en') !!}
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Full Content</label>
-                                            {!! $service->trix('content_en') !!}
-                                        </div>
-                                    @else
-                                        <div class="form-group">
-                                            <label>Short Content</label>
-                                            @trix(\App\Models\Service::class, 'short_content_en')
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Full Content</label>
-                                            @trix(\App\Models\Service::class, 'content_en')
-                                        </div>
-                                    @endif
+                                    <x-forms.rich-editor :model="\App\Models\Services::class" field="short_content_en" label="Short Content" :height="200" :record="$service ?? null" />
+                                    <x-forms.rich-editor :model="\App\Models\Services::class" field="content_en" label="Full Content" :height="400" :record="$service ?? null" />
                                 </x-slot>
                             </x-forms.locale-tabs>
 

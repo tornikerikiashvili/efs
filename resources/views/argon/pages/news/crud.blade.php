@@ -2,7 +2,7 @@
 
 @section('content')
     @include('argon.layouts.headers.cards')
-    @trixassets
+    <x-rich-editor-assets />
     <div class="container-fluid mt--6">
         <div class="row">
             <div class="col-xl-8 order-xl-1">
@@ -25,25 +25,8 @@
 
                                     <x-forms.seo-og-section locale="ka" :record="$news ?? null" />
 
-                                    @if(isset($news))
-                                        <div class="form-group">
-                                            <label>Short Content</label>
-                                            {!! $news->trix('short_content_ka') !!}
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Content</label>
-                                            {!! $news->trix('content_ka') !!}
-                                        </div>
-                                    @else
-                                        <div class="form-group">
-                                            <label>Short Content</label>
-                                            @trix(\App\Models\News::class, 'short_content_ka')
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Content</label>
-                                            @trix(\App\Models\News::class, 'content_ka')
-                                        </div>
-                                    @endif
+                                    <x-forms.rich-editor :model="\App\Models\News::class" field="short_content_ka" label="Short Content" :height="200" :record="$news ?? null" />
+                                    <x-forms.rich-editor :model="\App\Models\News::class" field="content_ka" label="Content" :height="400" :record="$news ?? null" />
                                 </x-slot>
 
                                 <x-slot name="en">
@@ -52,25 +35,8 @@
 
                                     <x-forms.seo-og-section locale="en" :record="$news ?? null" />
 
-                                    @if(isset($news))
-                                        <div class="form-group">
-                                            <label>Short Content</label>
-                                            {!! $news->trix('short_content_en') !!}
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Content</label>
-                                            {!! $news->trix('content_en') !!}
-                                        </div>
-                                    @else
-                                        <div class="form-group">
-                                            <label>Short Content</label>
-                                            @trix(\App\Models\News::class, 'short_content_en')
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Content</label>
-                                            @trix(\App\Models\News::class, 'content_en')
-                                        </div>
-                                    @endif
+                                    <x-forms.rich-editor :model="\App\Models\News::class" field="short_content_en" label="Short Content" :height="200" :record="$news ?? null" />
+                                    <x-forms.rich-editor :model="\App\Models\News::class" field="content_en" label="Content" :height="400" :record="$news ?? null" />
                                 </x-slot>
                             </x-forms.locale-tabs>
 
@@ -133,13 +99,5 @@
                 </div>
             </div>
         </div>
-    @endsection
-    <!-- Initialize Quill editor -->
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-    
- 
-
-    @push('js')
-        <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.min.js"></script>
-        <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.extension.js"></script>
-    @endpush
+    </div>
+@endsection

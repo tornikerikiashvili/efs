@@ -71,6 +71,7 @@
     <link rel="stylesheet" href="/css/flexslider.css?2">
     <link rel="stylesheet" href="/css/magnific-popup.css">
     <link rel="stylesheet" href="/css/contact-form.css">
+    <link rel="stylesheet" href="/css/rich-text.css">
     <link rel="stylesheet" href="/css/skin.css?5">
 
     <style>
