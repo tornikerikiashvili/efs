@@ -18,9 +18,8 @@ class ServicesController extends Controller
         // exit;
 
         $locale = app()->getLocale();
-       
-        $services = Services::select('id','name_'.$locale,'content_'.$locale,'image')->where('status',1)->get();
-        $services = Services::where('status',1)->get();
+
+        $services = Services::where('status', 1)->get();
 
         foreach ($services as $value) {
             $updates = [];
@@ -114,6 +113,8 @@ class ServicesController extends Controller
             "og_title_en" => $request->og_title_en ?? null,
             "og_description_ka" => $request->og_description_ka ?? null,
             "og_description_en" => $request->og_description_en ?? null,
+            "image_alt_ka" => $request->image_alt_ka ?? null,
+            "image_alt_en" => $request->image_alt_en ?? null,
             "content_ka" => $request->content_ka ?? '',
             "content_en" => $request->content_en ?? '',
             "icon" => '',
@@ -221,6 +222,8 @@ class ServicesController extends Controller
             "og_title_en" => $request->og_title_en ?? null,
             "og_description_ka" => $request->og_description_ka ?? null,
             "og_description_en" => $request->og_description_en ?? null,
+            "image_alt_ka" => $request->image_alt_ka ?? null,
+            "image_alt_en" => $request->image_alt_en ?? null,
             "content_ka" => $request->content_ka ?? '',
             "content_en" => $request->content_en ?? '',
             'services-trixFields' => $request['services-trixFields'],

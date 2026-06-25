@@ -137,7 +137,7 @@ class HomePageController extends Controller
     public function front_index()
     {
 
-        $services = Services::select('id', 'name_'.app()->getLocale(), 'icon')->where('status', 1)->get();
+        $services = Services::where('status', 1)->get();
         $mainsliders = Slider::where('status',1)->orderBy('sort')->get();
         return view('homepage')->with(compact('services','mainsliders'));
 

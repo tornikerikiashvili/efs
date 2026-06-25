@@ -35,7 +35,7 @@
                         <li style=" display: block;">
                             <div class="advs-box advs-box-top-icon" data-anima="rotate-20" data-trigger="hover">
                                 <i class="fa icon anima" aid="0.5656996326410737">
-                                    <img src="{{ $item->getFirstMediaUrl('icon') ?: ($item->icon ? '/images/homepage-icons/' . $item->icon : '') }}" alt="">
+                                    <img src="{{ $item->getFirstMediaUrl('icon') ?: ($item->icon ? '/images/homepage-icons/' . $item->icon : '') }}" alt="{{ e($item->imageAltForLocale()) }}">
                                 </i>
                                 <h3>{{ $item['name_' . app()->getLocale()] }}</h3>
                                 {{-- <p>

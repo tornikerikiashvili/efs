@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Concerns\HasLocalizedImageAlt;
 use App\Concerns\HasLocalizedSlugs;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Services extends Model implements HasMedia
 {
-    use HasFactory, InteractsWithMedia, HasTrixRichText, HasLocalizedSlugs;
+    use HasFactory, InteractsWithMedia, HasTrixRichText, HasLocalizedSlugs, HasLocalizedImageAlt;
 
     protected $fillable = [
         "name_ka",
@@ -27,6 +28,8 @@ class Services extends Model implements HasMedia
         "og_description_ka",
         "og_description_en",
         "image",
+        "image_alt_ka",
+        "image_alt_en",
         "content_ka",
         "content_en",
         "status",

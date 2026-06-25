@@ -26,7 +26,7 @@
         @foreach ($services as $service)
             <div class="row fade_effect slide-effect single-service">
                 <div class="col-md-5">
-                    <img src="{{ $service->getFirstMediaUrl('main') }}" alt="" loading="lazy">
+                    <img src="{{ $service->getFirstMediaUrl('main') }}" alt="{{ e($service->imageAltForLocale()) }}" loading="lazy">
                 </div>
                 <div class="col-md-7">
                     <div class="title-base text-left"  id="scrollhere-{{ $service['id'] }}">

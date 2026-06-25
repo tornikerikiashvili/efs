@@ -55,7 +55,7 @@
                                             </span>
                                         @endif
                                         <img src="{{ isset($mediaItems[0]) ? $mediaItems[0]->getUrl() : 'https://winaero.com/blog/wp-content/uploads/2019/09/Photos-app-icon-256-colorful.png' }}"
-                                            style="max-width: 600px" alt="...">
+                                            style="max-width: 600px" alt="{{ e(isset($service) ? $service->imageAltForLocale('ka') : '') }}">
                                     </div>
                                     <div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
                                     <div>
@@ -71,6 +71,10 @@
                                         @endif
                                     </div>
                                 </div>
+
+                                <h6 class="heading-small text-muted mb-3 mt-4">Image alt text</h6>
+                                <x-forms.image-alt-fields :record="$service ?? null" />
+
                                 <br>
                                 <hr>
                                 <br>
@@ -135,11 +139,10 @@
                 </div>
             </div>
         </div>
-    @endsection
+    </div>
+@endsection
 
-   
-
-    @push('js')
+@push('js')
         <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.min.js"></script>
         <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.extension.js"></script>
     @endpush

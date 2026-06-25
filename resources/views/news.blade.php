@@ -26,7 +26,7 @@
                                         </div>
                                         <a class="block-comment" href="#">2 <i class="fa fa-comment-o"></i></a>
                                     </div>
-                                    <a class="img-box" href="{{ route('singlenews', ['slug' => $n->slugForLocale()]) }}"><img class="anima" src="{{ $n->getFirstMediaUrl('main') }}" alt=""
+                                    <a class="img-box" href="{{ route('singlenews', ['slug' => $n->slugForLocale()]) }}"><img class="anima" src="{{ $n->getFirstMediaUrl('main') }}" alt="{{ e($n->imageAltForLocale()) }}"
                                             style="margin-top: -34px; position: relative; transition-duration: 500ms; animation-duration: 500ms; transition-timing-function: ease; transition-delay: 0ms;"
                                             aid="0.5357019905551677"></a>
                                     <div class="advs-box-content">

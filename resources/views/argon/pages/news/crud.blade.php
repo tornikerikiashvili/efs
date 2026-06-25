@@ -50,7 +50,7 @@
                                         @endif
                                         <img src="{{isset($mediaItems[0]) ? $mediaItems[0]->getUrl() : 'https://winaero.com/blog/wp-content/uploads/2019/09/Photos-app-icon-256-colorful.png'}}"
                                         style="max-width: 600px"    
-                                        alt="...">
+                                        alt="{{ e(isset($news) ? $news->imageAltForLocale('ka') : '') }}">
                                     </div>
                                     <div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
                                     <div>
@@ -66,6 +66,8 @@
                                         @endif
                                     </div>
                                 </div>
+
+                                <x-forms.image-alt-fields :record="$news ?? null" />
 
                                 <br><br>
 

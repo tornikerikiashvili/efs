@@ -37,7 +37,7 @@
                         </div>
                       </th>
                       <td class="budget">
-                        <img  src="{{ $service->getFirstMediaUrl('main') }}" style="max-width:120px">
+                        <img src="{{ $service->getFirstMediaUrl('main') }}" alt="{{ e($service->imageAltForLocale('ka')) }}" style="max-width:120px">
                       </td>
                       <td>
                         <span class="badge badge-dot mr-4">

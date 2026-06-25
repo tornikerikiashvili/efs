@@ -14,7 +14,7 @@
                 <br>
                 <hr class="space m">
                 <a class="img-box" href="#">
-                    <img src="{{$single->getFirstMediaUrl('main')}}" alt="">
+                    <img src="{{$single->getFirstMediaUrl('main')}}" alt="{{ e($single->imageAltForLocale()) }}">
                 </a>
                 <hr class="space m">
                 <div class="rich-text-content">
@@ -30,7 +30,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <a class="img-box circle">
-                                    <img src="{{$n->getFirstMediaUrl('main')}}" alt="">
+                                    <img src="{{$n->getFirstMediaUrl('main')}}" alt="{{ e($n->imageAltForLocale()) }}">
                                 </a>
                             </div>
                             <div class="col-md-8">

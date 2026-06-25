@@ -204,6 +204,8 @@ class ProjectsController extends Controller
             "og_title_en" => $request->og_title_en ?? null,
             "og_description_ka" => $request->og_description_ka ?? null,
             "og_description_en" => $request->og_description_en ?? null,
+            "image_alt_ka" => $request->image_alt_ka ?? null,
+            "image_alt_en" => $request->image_alt_en ?? null,
             "content_ka" => $request->content_ka ?? '',
             "content_en" => $request->content_en ?? '',
             'projects-trixFields' => $request['projects-trixFields']
@@ -295,6 +297,8 @@ class ProjectsController extends Controller
                 "og_title_en" => $request->og_title_en ?? null,
                 "og_description_ka" => $request->og_description_ka ?? null,
                 "og_description_en" => $request->og_description_en ?? null,
+                "image_alt_ka" => $request->image_alt_ka ?? null,
+                "image_alt_en" => $request->image_alt_en ?? null,
                 "content_ka" => $request->content_ka ?? '',
                 "content_en" => $request->content_en ?? '',
                 'projects-trixFields' => $request['projects-trixFields']

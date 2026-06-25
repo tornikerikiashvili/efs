@@ -25,7 +25,7 @@
                                             <p class="bd-day">{{$n['created_at']}}</p>
                                         </div>
                                     </div>
-                                    <a class="img-box" href="{{ route('singleblog', ['slug' => $n->slugForLocale()]) }}"><img class="anima" src="{{ $n->getFirstMediaUrl('main') }}" alt=""></a>
+                                    <a class="img-box" href="{{ route('singleblog', ['slug' => $n->slugForLocale()]) }}"><img class="anima" src="{{ $n->getFirstMediaUrl('main') }}" alt="{{ e($n->imageAltForLocale()) }}"></a>
                                     <div class="advs-box-content">
                                         <h2><a href="{{ route('singleblog', ['slug' => $n->slugForLocale()]) }}">{{$n['name_'.app()->getLocale()]}}</a></h2>
                                         <p class="niche-box-content">

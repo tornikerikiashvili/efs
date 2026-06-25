@@ -30,7 +30,7 @@
                 <div class="service-detail">
                     <div class="inner-box">
                         <div class="image">
-                            <img src="{{($service->getFirstMediaUrl('main')) ? $service->getFirstMediaUrl('main') : ''}}" alt="">
+                            <img src="{{($service->getFirstMediaUrl('main')) ? $service->getFirstMediaUrl('main') : ''}}" alt="{{ e($service->imageAltForLocale()) }}">
                         </div>
                         <div class="rich-text-content">
                             {!! $service->trixRender('content_'.app()->getLocale()) !!}

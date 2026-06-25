@@ -35,7 +35,7 @@
                         <div class="advs-box advs-box-multiple boxed-inverse" data-anima="scale-up" data-trigger="hover"
                             style="visibility: visible; opacity: 1;">
                             <a class="img-box" style="opacity: 1;"><img class="anima"
-                                    src="{{ $item->getFirstMediaUrl('main') }}"  alt=""
+                                    src="{{ $item->getFirstMediaUrl('main') }}"  alt="{{ e($item->imageAltForLocale()) }}"
                                     aid="0.7323773017265196"
                                     style="position: relative; transition-duration: 500ms; animation-duration: 500ms; transition-timing-function: ease; transition-delay: 0ms;"></a>
                             {{-- <div class="circle anima"
