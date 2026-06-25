@@ -465,7 +465,7 @@
                     @foreach ($partnerLogos as $partner)
                         <li>
                             @if ($partner->url)
-                                <a class="img-box" target="_blank" rel="noopener" href="{{ $partner->url }}">
+                                <a class="img-box" target="_blank" rel="nofollow noopener" href="{{ $partner->url }}">
                                     <img src="{{ $partner->getFirstMediaUrl('main') }}" alt="{{ e($partner->imageAltForLocale()) }}" draggable="false">
                                 </a>
                             @else
