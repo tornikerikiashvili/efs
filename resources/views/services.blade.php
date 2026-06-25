@@ -69,6 +69,8 @@
             <hr class="space">
         @endforeach
 
+        <x-list-pagination :paginator="$services" />
+
     </div>
 </div>
 <style>

@@ -10,7 +10,7 @@ class NewsController extends Controller
 {
     public function front_index()
     {
-        $news = News::where('status', 1)->orderBy('id', 'DESC')->get();
+        $news = News::where('status', 1)->orderBy('id', 'DESC')->paginate(list_page_size());
 
         return view('news')->with(compact('news'));
     }

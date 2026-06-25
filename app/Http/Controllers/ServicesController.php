@@ -33,7 +33,9 @@ class ServicesController extends Controller
                 Services::find($value->id)->update($updates);
             }
         }
-        
+
+        $services = Services::where('status', 1)->orderBy('id', 'DESC')->paginate(list_page_size());
+
         return view('services')->with(compact('services'));
 
     }

@@ -10,7 +10,7 @@ class BlogController extends Controller
 {
     public function front_index()
     {
-        $blogs = Blog::where('status', 1)->orderBy('id', 'DESC')->get();
+        $blogs = Blog::where('status', 1)->orderBy('id', 'DESC')->paginate(list_page_size());
 
         return view('blog')->with(compact('blogs'));
     }

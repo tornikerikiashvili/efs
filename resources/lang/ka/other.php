@@ -30,5 +30,12 @@ return [
     'read_more' => 'სრულად',
     'error_404_message' => 'გვერდი ვერ მოიძებნა.',
     'error_404_home' => 'მთავარ გვერდზე დაბრუნება',
+    'search' => 'ძებნა',
+    'search_placeholder' => 'ძებნა...',
+    'search_prompt' => 'შეიყვანეთ საკვანძო სიტყვა სიახლეებში, ბლოგში, სერვისებსა და პროექტებში საძიებლად.',
+    'search_results_for' => 'შედეგები: ":query"',
+    'search_results_description' => 'ძებნის შედეგები ":query" — EFS.',
+    'search_description' => 'ძებნა სიახლეებში, ბლოგში, სერვისებსა და პროექტებში — EFS.',
+    'search_no_results' => '":query" — შედეგები ვერ მოიძებნა.',
 
 ];

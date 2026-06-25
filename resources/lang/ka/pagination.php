@@ -13,7 +13,8 @@ return [
     |
     */
 
-    'previous' => '&laquo; Previous',
-    'next' => 'Next &raquo;',
+    'previous' => 'წინა',
+    'next' => 'შემდეგი',
+    'aria_label' => 'გვერდები',
 
 ];

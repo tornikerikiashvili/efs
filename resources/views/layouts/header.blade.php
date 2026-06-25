@@ -42,6 +42,9 @@
 
     <meta name="title" content="{{ e($pageSeo['title']) }}">
     <meta name="description" content="{{ e($pageSeo['description']) }}">
+    @if (is_noindex_page())
+        <meta name="robots" content="noindex, follow">
+    @endif
 
     <meta property="og:type" content="{{ e($pageSeo['og_type']) }}" />
     <meta property="og:url" content="{{ e($canonical) }}" />
@@ -351,14 +354,14 @@
                             </li>
                         </ul>
                         <div class="nav navbar-nav navbar-right">
-                            <div class="search-box-menu">
+                            <form action="{{ route('search') }}" method="GET" class="search-box-menu" role="search">
                                 <div class="search-box scrolldown">
-                                    <input type="text" class="form-control" placeholder="Search for...">
+                                    <input type="text" name="q" class="form-control" placeholder="{{ __('other.search_placeholder') }}" value="{{ e(request('q', '')) }}" maxlength="200" autocomplete="off">
                                 </div>
-                                <button type="button" class="btn btn-default btn-search">
+                                <button type="button" class="btn btn-default btn-search" aria-label="{{ __('other.search') }}">
                                     <span class="fa fa-search"></span>
                                 </button>
-                            </div>
+                            </form>
                             <ul class="nav navbar-nav lan-menu">
                                 <li class="dropdown">
                                     @if (App::getLocale() == 'ka')
@@ -400,5 +403,21 @@
 
             e.preventDefault();
             window.location.href = url.pathname + '?_=' + Date.now() + url.hash;
+        });
+
+        $('.search-box-menu').on('submit', function (e) {
+            var query = $(this).find('input[name="q"]').val().trim();
+            if (!query) {
+                e.preventDefault();
+            }
+        });
+
+        $('.search-box-menu input[name="q"]').on('keydown', function (e) {
+            if (e.key === 'Enter') {
+                var query = $(this).val().trim();
+                if (query) {
+                    $(this).closest('form').trigger('submit');
+                }
+            }
         });
     </script>

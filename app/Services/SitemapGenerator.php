@@ -54,6 +54,11 @@ class SitemapGenerator
             'changefreq' => 'weekly',
             'priority' => '0.6',
         ],
+        Projects::class => [
+            'route' => 'singleproject',
+            'changefreq' => 'monthly',
+            'priority' => '0.7',
+        ],
     ];
 
     /**

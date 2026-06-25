@@ -37,6 +37,7 @@
                             </div>
                         @endforeach
                     </div>
+                    <x-list-pagination :paginator="$blogs" />
                 </div>
                 <hr class="space visible-sm">
             </div>

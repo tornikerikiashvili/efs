@@ -3,6 +3,7 @@
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\News;
+use App\Models\Projects;
 use App\Models\Services;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\ProjectsController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\TranslationController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SiteSeoController;
 use App\Http\Controllers\SitemapController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -90,11 +92,23 @@ Route::group([
     Route::get('/services/{slug}', [ServicesController::class, 'front_show'])->name('singleservice');
 
     Route::get('/projects', [ProjectsController::class, 'front_index'])->name('projects');
+
+    Route::get('/projects/{slug}/{id}', function ($slug, $id) {
+        $project = Projects::where('status', 1)->find($id);
+        abort_unless($project, 404);
+
+        return redirect()->route('singleproject', ['slug' => $project->slugForLocale()], 301);
+    })->where('id', '[0-9]+');
+
+    Route::get('/projects/{slug}', [ProjectsController::class, 'front_show'])->name('singleproject');
+
     Route::get('/news', [NewsController::class, 'front_index'])->name('news');
     Route::get('/news/{slug}', [NewsController::class, 'front_show'])->name('singlenews');
 
     Route::get('/blog', [BlogController::class, 'front_index'])->name('blog');
     Route::get('/blog/{slug}', [BlogController::class, 'front_show'])->name('singleblog');
+
+    Route::get('/search', [SearchController::class, 'index'])->name('search');
 
     Route::get('/contact', function () {
         return view('contact');

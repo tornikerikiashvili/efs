@@ -34,7 +34,7 @@
                         class="maso-item col-md-4 col-sm-6  scale-up-center">
                         <div class="advs-box advs-box-multiple boxed-inverse" data-anima="scale-up" data-trigger="hover"
                             style="visibility: visible; opacity: 1;">
-                            <a class="img-box" style="opacity: 1;"><img class="anima"
+                            <a class="img-box" href="{{ route('singleproject', ['slug' => $item->slugForLocale()]) }}" style="opacity: 1;"><img class="anima"
                                     src="{{ $item->getFirstMediaUrl('main') }}"  alt="{{ e($item->imageAltForLocale()) }}"
                                     aid="0.7323773017265196"
                                     style="position: relative; transition-duration: 500ms; animation-duration: 500ms; transition-timing-function: ease; transition-delay: 0ms;"></a>
@@ -42,18 +42,19 @@
                                 style="transition-duration: 500ms; animation-duration: 500ms; transition-timing-function: ease; transition-delay: 0ms;"
                                 aid="0.9653511579632346"><i class="fa fa-cutlery"></i></div> --}}
                             <div class="advs-box-content" style="opacity: 1;">
-                                <h3>{{ $item['name_'.app()->getLocale()] }}</h3>
-                                {{-- <p>
-                                    Interdum iusto pulvinar consequuntur augue optio, repellat fuga! Purus expedita fusce
-                                    temporibus est odit mi quos? Aliquid semper, veritatis dignissimos.
-                                </p> --}}
-                                {{-- <a class="btn-text" href="#">სრულად </a> --}}
+                                <h3>
+                                    <a href="{{ route('singleproject', ['slug' => $item->slugForLocale()]) }}">
+                                        {{ $item['name_'.app()->getLocale()] }}
+                                    </a>
+                                </h3>
+                                <a class="btn-text" href="{{ route('singleproject', ['slug' => $item->slugForLocale()]) }}">{{ __('other.readmore') }}</a>
                             </div>
                         </div>
                     </div>
                 @endforeach
                 <div class="clear"></div>
             </div>
+            <x-list-pagination :paginator="$projects" />
             <style>
                 .scale-up-center {
                     -webkit-animation: scale-up-center 1s cubic-bezier(.39, .575, .565, 1.000) both;

@@ -2,6 +2,7 @@
 
 use App\Models\Blog;
 use App\Models\News;
+use App\Models\Projects;
 use App\Models\Services;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -82,6 +83,7 @@ function resolve_localized_content(string $modelClass, string $segment)
         Blog::class => 'singleblog',
         News::class => 'singlenews',
         Services::class => 'singleservice',
+        Projects::class => 'singleproject',
     ];
 
     $routeName = $routeMap[$modelClass] ?? null;
@@ -135,6 +137,7 @@ function localized_switch_url(string $targetLocale, ?Model $entity = null): stri
         'singlenews' => News::class,
         'singleblog' => Blog::class,
         'singleservice' => Services::class,
+        'singleproject' => Projects::class,
     ];
 
     $routeName = $route->getName();
@@ -172,6 +175,7 @@ function localized_switch_url(string $targetLocale, ?Model $entity = null): stri
             'singlenews' => 'news',
             'singleblog' => 'blog',
             'singleservice' => 'services',
+            'singleproject' => 'projects',
         ];
 
         if (isset($indexRoutes[$routeName])) {
@@ -181,8 +185,22 @@ function localized_switch_url(string $targetLocale, ?Model $entity = null): stri
 
     if ($routeName) {
         $parameters = collect($route->parameters())->except(['locale'])->all();
+        $path = route($routeName, $parameters, false);
 
-        return localized_url($targetLocale, route($routeName, $parameters, false));
+        if ($routeName === 'search') {
+            $query = array_filter([
+                'q' => request()->query('q'),
+                'page' => current_list_page() > 1 ? current_list_page() : null,
+            ], function ($value) {
+                return $value !== null && $value !== '';
+            });
+
+            if ($query !== []) {
+                $path .= '?' . http_build_query($query);
+            }
+        }
+
+        return localized_url($targetLocale, $path);
     }
 
     return localized_url($targetLocale);
@@ -217,12 +235,76 @@ function localized_page_url(string $locale, ?Model $entity = null): string
     return localized_switch_url($locale, $entity);
 }
 
+function list_page_size(): int
+{
+    return 9;
+}
+
+function current_list_page(): int
+{
+    return max(1, (int) request()->query('page', 1));
+}
+
+/**
+ * Whether the current page should be excluded from search engine indexing.
+ */
+function is_noindex_page(): bool
+{
+    $routeName = request()->route()?->getName();
+
+    if ($routeName === 'search') {
+        return true;
+    }
+
+    $listRoutes = ['news', 'blog', 'services', 'projects'];
+
+    return in_array($routeName, $listRoutes, true) && current_list_page() > 1;
+}
+
 /**
  * Canonical URL for the current page.
  */
 function canonical_url(?Model $entity = null): string
 {
-    return localized_page_url(app()->getLocale(), $entity);
+    if ($entity) {
+        return localized_page_url(app()->getLocale(), $entity);
+    }
+
+    if (is_noindex_page() && request()->route()?->getName() !== 'search') {
+        return list_route_canonical_url(app()->getLocale());
+    }
+
+    if (request()->route()?->getName() === 'search') {
+        $query = array_filter([
+            'q' => request()->query('q'),
+            'page' => current_list_page() > 1 ? current_list_page() : null,
+        ], function ($value) {
+            return $value !== null && $value !== '';
+        });
+
+        $path = route('search', [], false);
+
+        if ($query !== []) {
+            $path .= '?' . http_build_query($query);
+        }
+
+        return localized_url(app()->getLocale(), $path);
+    }
+
+    return localized_page_url(app()->getLocale(), null);
+}
+
+function list_route_canonical_url(string $locale): string
+{
+    $route = request()->route();
+
+    if (! $route || ! $route->getName()) {
+        return localized_url($locale);
+    }
+
+    $parameters = collect($route->parameters())->except(['locale'])->all();
+
+    return localized_url($locale, route($route->getName(), $parameters, false));
 }
 
 /**

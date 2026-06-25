@@ -138,14 +138,38 @@ class ProjectsController extends Controller
      */
     public function front_index()
     {
-        $locale = app()->getLocale();
-       
-        $projects = Projects::select('id','name_'.$locale,'image')->where('status',1)->with('media')->get();
-      
-        //$projects = $this->projectsArr;
+        $projects = Projects::where('status', 1)->get();
+
+        foreach ($projects as $project) {
+            $updates = [];
+            if (! $project->slug_ka) {
+                $updates['slug_ka'] = unique_localized_slug('projects', 'slug_ka', $project->name_ka, $project->id);
+            }
+            if (! $project->slug_en) {
+                $updates['slug_en'] = unique_localized_slug('projects', 'slug_en', $project->name_en, $project->id);
+            }
+            if ($updates) {
+                Projects::find($project->id)->update($updates);
+            }
+        }
+
+        $projects = Projects::where('status', 1)->orderBy('id', 'DESC')->paginate(list_page_size());
+
         return view('projects')->with(compact('projects'));
     }
 
+    public function front_show($slug)
+    {
+        $single = resolve_localized_content(Projects::class, $slug);
+
+        if ($single instanceof \Illuminate\Http\RedirectResponse) {
+            return $single;
+        }
+
+        $projects = Projects::where('status', 1)->orderBy('id', 'DESC')->get();
+
+        return view('single-project')->with(compact('single', 'projects'));
+    }
 
     public function index()
     {
