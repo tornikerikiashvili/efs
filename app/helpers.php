@@ -15,6 +15,61 @@ function cms_image_mimes(): string
     return 'jpeg,jpg,png,gif,webp';
 }
 
+function google_maps_embed_src_from_input(?string $input): ?string
+{
+    if ($input === null || trim($input) === '') {
+        return null;
+    }
+
+    $input = trim(stripslashes($input));
+
+    if (preg_match('#^https://www\.google\.com/maps/embed#i', $input)) {
+        return $input;
+    }
+
+    if (preg_match('/src\s*=\s*(?:\\\\)?["\']([^"\']+)["\']/i', $input, $matches)) {
+        $src = html_entity_decode(stripslashes($matches[1]), ENT_QUOTES | ENT_HTML5);
+
+        if (preg_match('#^https://www\.google\.com/maps/embed#i', $src)) {
+            return $src;
+        }
+    }
+
+    return null;
+}
+
+function google_map_iframe(?string $embedInput = null, array $attributes = []): string
+{
+    $embedInput = $embedInput ?? __('other.map_embed');
+    $src = google_maps_embed_src_from_input($embedInput);
+
+    if ($src === null) {
+        return '';
+    }
+
+    $defaults = [
+        'width' => '100%',
+        'height' => '334',
+        'style' => 'border:0;',
+        'allowfullscreen' => '',
+        'loading' => 'lazy',
+        'referrerpolicy' => 'no-referrer-when-downgrade',
+    ];
+
+    $attrs = array_merge($defaults, $attributes);
+    $html = '<iframe src="'.e($src).'"';
+
+    foreach ($attrs as $name => $value) {
+        if ($value === '') {
+            $html .= ' '.e($name);
+        } else {
+            $html .= ' '.e($name).'="'.e($value).'"';
+        }
+    }
+
+    return $html.'></iframe>';
+}
+
 function test()
 {
    return 'A Global Function with ';

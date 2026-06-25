@@ -132,7 +132,7 @@ class LangFileManager
             if (is_array($value)) {
                 $items[] = $indent.$exportedKey.' => '.$this->exportArray($value, $depth + 1);
             } else {
-                $items[] = $indent.$exportedKey." => '".addslashes((string) $value)."'";
+                $items[] = $indent.$exportedKey." => '".$this->escapePhpSingleQuotedString((string) $value)."'";
             }
         }
 
@@ -143,5 +143,10 @@ class LangFileManager
         $childIndent = str_repeat('    ', $depth - 1);
 
         return "[\n".implode(",\n", $items).",\n".$childIndent.']';
+    }
+
+    protected function escapePhpSingleQuotedString(string $value): string
+    {
+        return str_replace(['\\', "'"], ['\\\\', "\\'"], $value);
     }
 }

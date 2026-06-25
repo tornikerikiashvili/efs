@@ -21,7 +21,10 @@
                                         <input type="hidden" name="rows[{{ $index }}][key]" value="{{ $key }}">
                                         <div class="form-group">
                                             <label class="form-control-label text-muted small">{{ $key }}</label>
-                                            @if (strlen($values['ka'][$key] ?? '') > 120)
+                                            @if ($key === 'map_embed')
+                                                <p class="text-muted small mb-2">Paste the full Google Maps iframe HTML or only the embed URL.</p>
+                                            @endif
+                                            @if (strlen($values['ka'][$key] ?? '') > 120 || $key === 'map_embed')
                                                 <textarea class="form-control" rows="4" name="rows[{{ $index }}][ka]">{{ old('rows.'.$index.'.ka', $values['ka'][$key] ?? '') }}</textarea>
                                             @else
                                                 <input type="text" class="form-control" name="rows[{{ $index }}][ka]" value="{{ old('rows.'.$index.'.ka', $values['ka'][$key] ?? '') }}">
@@ -35,7 +38,10 @@
                                     @foreach ($keys as $index => $key)
                                         <div class="form-group">
                                             <label class="form-control-label text-muted small">{{ $key }}</label>
-                                            @if (strlen($values['en'][$key] ?? '') > 120)
+                                            @if ($key === 'map_embed')
+                                                <p class="text-muted small mb-2">Paste the full Google Maps iframe HTML or only the embed URL.</p>
+                                            @endif
+                                            @if (strlen($values['en'][$key] ?? '') > 120 || $key === 'map_embed')
                                                 <textarea class="form-control" rows="4" name="rows[{{ $index }}][en]">{{ old('rows.'.$index.'.en', $values['en'][$key] ?? '') }}</textarea>
                                             @else
                                                 <input type="text" class="form-control" name="rows[{{ $index }}][en]" value="{{ old('rows.'.$index.'.en', $values['en'][$key] ?? '') }}">
