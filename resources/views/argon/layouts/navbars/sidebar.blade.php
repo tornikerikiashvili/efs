@@ -156,6 +156,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('partner-logos.index') }}">
+                      <i class="ni ni-building text-default"></i>
+                      <span class="nav-link-text">Partner Logos</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('about.index') }}">
                       <i class="ni ni-bullet-list-67 text-default"></i>
                       <span class="nav-link-text">About Texts</span>

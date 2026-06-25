@@ -462,77 +462,19 @@
             data-options="numItems:6,controlNav:false,directionNav:true">
             <div class="flex-viewport">
                 <ul class="slides">
-
-                    {{-- <li style="">
-                        <a class="img-box" target="_blank" href="#">
-                            <img src="/images/damkveti-logos/da-grid.png" alt="" draggable="false">
-                        </a>
-                    </li> --}}
-                    <li style="">
-                        <a class="img-box" target="_blank" href="https://floor.ge/?lang=ka">
-                            <img src="/images/damkveti-logos/da-allp.png" alt="" draggable="false">
-                        </a>
-                    </li>
-                    <li style="">
-                        <a class="img-box" target="_blank" href="https://www.archi.ge/ge">
-                            <img src="/images/damkveti-logos/da-archi.png" alt="" draggable="false">
-                        </a>
-                    </li>
-                    <li style="">
-                        <a class="img-box" target="_blank" href="https://dd.ge/">
-                            <img src="/images/damkveti-logos/da-dunkin.png" alt="" draggable="false">
-                        </a>
-                    </li>
-                    <li style="">
-                        <a class="img-box" target="_blank" href="https://energony.ge/">
-                            <img src="/images/damkveti-logos/da-energon.png" alt="" draggable="false">
-                        </a>
-                    </li>
-                    <li style="">
-                        <a class="img-box" target="_blank" href="https://ec.ge/">
-                            <img src="/images/damkveti-logos/da-element.png?1" alt="" draggable="false">
-                        </a>
-                    </li>
-                    <li style="">
-                        <a class="img-box" target="_blank" href="https://www.ltb.ge/">
-                            <img src="/images/damkveti-logos/da-ltb.png" alt="" draggable="false">
-                        </a>
-                    </li>
-                    <li style="">
-                        <a class="img-box" target="_blank" href="https://tfox.ge/">
-                            <img src="/images/damkveti-logos/da-tifox.png?1" alt="" draggable="false">
-                        </a>
-                    </li>
-                    <li style="">
-                        <a class="img-box" target="_blank" href="https://mcdonalds.ge/ge/home">
-                            <img src="/images/damkveti-logos/da-mc.png?1" alt="" draggable="false">
-                        </a>
-                    </li>
-                    <li style="">
-                        <a class="img-box" target="_blank" href="http://mdf.org.ge/">
-                            <img src="/images/damkveti-logos/da-mdf.png" alt="" draggable="false">
-                        </a>
-                    </li>
-                    <li style="">
-                        <a class="img-box" target="_blank" href="http://gpp.ge/ka/">
-                            <img src="/images/damkveti-logos/da-noste.png" alt="" draggable="false">
-                        </a>
-                    </li>
-                    <li style="">
-                        <a class="img-box" target="_blank" href="https://www.sabauni.edu.ge/ka">
-                            <img src="/images/damkveti-logos/da-sabauni.png" alt="" draggable="false">
-                        </a>
-                    </li>
-                    <li style="">
-                        <a class="img-box" target="_blank" href="https://terminal.center/">
-                            <img src="/images/damkveti-logos/da-terminal.png" alt="" draggable="false">
-                        </a>
-                    </li>
-                    <li style="">
-                        <a class="img-box" target="_blank" href="https://agrosphere.ge/">
-                            <img src="/images/damkveti-logos/da-agrosphere.png" alt="" draggable="false">
-                        </a>
-                    </li>
+                    @foreach ($partnerLogos as $partner)
+                        <li>
+                            @if ($partner->url)
+                                <a class="img-box" target="_blank" rel="noopener" href="{{ $partner->url }}">
+                                    <img src="{{ $partner->getFirstMediaUrl('main') }}" alt="{{ e($partner->imageAltForLocale()) }}" draggable="false">
+                                </a>
+                            @else
+                                <span class="img-box">
+                                    <img src="{{ $partner->getFirstMediaUrl('main') }}" alt="{{ e($partner->imageAltForLocale()) }}" draggable="false">
+                                </span>
+                            @endif
+                        </li>
+                    @endforeach
                 </ul>
             </div>
             <ul class="flex-direction-nav">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PartnerLogo;
 use App\Models\Slider;
 use App\Models\Services;
 use Illuminate\Http\Request;
@@ -139,7 +140,9 @@ class HomePageController extends Controller
 
         $services = Services::where('status', 1)->get();
         $mainsliders = Slider::where('status',1)->orderBy('sort')->get();
-        return view('homepage')->with(compact('services','mainsliders'));
+        $partnerLogos = PartnerLogo::where('status', 1)->orderBy('sort_order')->orderBy('id')->get();
+
+        return view('homepage')->with(compact('services', 'mainsliders', 'partnerLogos'));
 
     }
 

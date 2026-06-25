@@ -12,6 +12,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\HomePageController;
+use App\Http\Controllers\PartnerLogoController;
 use App\Http\Controllers\ProjectsController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\TeamMemberController;
@@ -46,6 +47,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'argon'], function () {
     Route::resource('news', NewsController::class);
     Route::resource('blog', BlogController::class);
     Route::resource('team-members', TeamMemberController::class);
+    Route::resource('partner-logos', PartnerLogoController::class);
     Route::get('translations', [TranslationController::class, 'index'])->name('translations.index');
     Route::get('translations/{group}/edit', [TranslationController::class, 'edit'])->name('translations.edit');
     Route::put('translations/{group}', [TranslationController::class, 'update'])->name('translations.update');
