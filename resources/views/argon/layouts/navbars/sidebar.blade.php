@@ -162,6 +162,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('team-members.index') }}">
+                      <i class="ni ni-circle-08 text-default"></i>
+                      <span class="nav-link-text">Team / Founders</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('translations.index') }}">
                       <i class="ni ni-world-2 text-info"></i>
                       <span class="nav-link-text">Translations</span>

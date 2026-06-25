@@ -14,6 +14,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\ProjectsController;
 use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\TeamMemberController;
 use App\Http\Controllers\TranslationController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SiteSeoController;
@@ -44,6 +45,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'argon'], function () {
     Route::resource('services', ServicesController::class);
     Route::resource('news', NewsController::class);
     Route::resource('blog', BlogController::class);
+    Route::resource('team-members', TeamMemberController::class);
     Route::get('translations', [TranslationController::class, 'index'])->name('translations.index');
     Route::get('translations/{group}/edit', [TranslationController::class, 'edit'])->name('translations.edit');
     Route::put('translations/{group}', [TranslationController::class, 'update'])->name('translations.update');
@@ -79,7 +81,10 @@ Route::group([
 ], function () {
     Route::get('/', [HomePageController::class, 'front_index'])->name('homepagefront');
     Route::get('/about', [AboutController::class, 'front_index'])->name('about');
-    Route::get('/about2', [AboutController::class, 'front_index2'])->name('sub-about');
+
+    Route::get('/about2', function () {
+        return redirect()->route('about', [], 301);
+    })->name('sub-about');
     Route::get('/services', [ServicesController::class, 'front_index'])->name('services');
 
     Route::get('/services/{slug}/{id}', function ($slug, $id) {

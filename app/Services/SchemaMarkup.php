@@ -33,7 +33,7 @@ class SchemaMarkup
 
         return match ($routeName) {
             'homepagefront' => $this->homeGraph($pageSeo),
-            'about', 'sub-about' => $this->aboutGraph($pageSeo),
+            'about' => $this->aboutGraph($pageSeo),
             'services' => $this->servicesGraph($pageSeo),
             'singlenews' => $entity instanceof News ? $this->newsArticleGraph($entity, $pageSeo) : null,
             'contact' => $this->contactGraph($pageSeo),

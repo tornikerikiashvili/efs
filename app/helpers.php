@@ -380,7 +380,6 @@ function seo_route_page_map(): array
     return [
         'homepagefront' => 'home',
         'about' => 'about',
-        'sub-about' => 'about',
         'services' => 'services',
         'projects' => 'projects',
         'news' => 'news',

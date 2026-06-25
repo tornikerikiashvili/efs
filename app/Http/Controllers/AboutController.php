@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\About;
+use App\Models\TeamMember;
 use Illuminate\Http\Request;
 
 class AboutController extends Controller
@@ -32,16 +33,11 @@ class AboutController extends Controller
 
     public function front_index()
     {
-        $about = About::where('page_id',1)->get();
-        
-        return view('about')->with(compact('about'));
-    }
+        $about = About::where('page_id', 1)->get();
+        $aboutSections = About::where('page_id', 2)->get();
+        $teamMembers = TeamMember::where('status', 1)->orderBy('sort_order')->orderBy('id')->get();
 
-    public function front_index2()
-    {
-        $about = About::where('page_id',2)->get();
-        
-        return view('sub-about')->with(compact('about'));
+        return view('about')->with(compact('about', 'aboutSections', 'teamMembers'));
     }
 
     /**

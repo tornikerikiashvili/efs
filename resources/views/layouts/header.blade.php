@@ -311,19 +311,8 @@
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav">
-                            <li class="dropdown">
-                                <a href="{{ route('about') }}" class="dropdown-toggle" data-toggle="dropdown"
-                                    role="button">{{ __('menu.about.about_us') }} <span
-                                        class="caret hideonmobile"></span></a>
-                                <a href="#" class="dropdown-toggle customwith hideondesktop"
-                                    data-toggle="dropdown" role="button"><span class="caret"></span></a>
-                                <ul class="dropdown-menu multi-level fade-in"
-                                    style="transition-duration: 300ms; animation-duration: 300ms; transition-timing-function: ease; transition-delay: 0ms;">
-                                    <li><a href="{{ route('about') }}">{{ __('menu.about.company') }}</a></li>
-                                    <li><a href="{{ route('sub-about') }}#misia">{{ __('menu.about.mission') }}</a></li>
-                                    <li><a href="{{ route('sub-about') }}#mizani">{{ __('menu.about.goal') }}</a></li>
-                                    <li><a href="{{ route('sub-about') }}#girebulebebi">{{ __('menu.about.values') }}</a></li>
-                                </ul>
+                            <li class="mega-tabs">
+                                <a href="{{ route('about') }}">{{ __('menu.about.about_us') }}</a>
                             </li>
                             <li class="dropdown">
                                 <a href="{{ route('services') }}" class="dropdown-toggle" data-toggle="dropdown"

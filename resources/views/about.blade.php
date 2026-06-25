@@ -8,7 +8,7 @@
                     {{ takeText($about,'subtext') }}
                 </p>
                 <ul class="fa-ul">
-                    @php 
+                    @php
                         $services = App\Models\Services::select('id','name_'.app()->getLocale())->where('status',1)->get()
                     @endphp
                     @foreach($services as $item)
@@ -16,40 +16,16 @@
                     @endforeach
                 </ul>
             </div>
-            {{-- <div class="col-md-4 col-sm-6">
-
-                <img src="../images/image-15.jpeg" alt="" style="margin-top: -1px;">
-
-                <hr class="space m">
-                <div class="advs-box advs-box-side-icon" data-anima="fade-top" data-trigger="hover">
-                    <div class="icon-box">
-                        <i class="fa fa-medkit icon anima" aid="0.5301694350503225"
-                            style="position: relative; transition-duration: 500ms; animation-duration: 500ms; transition-timing-function: ease; transition-delay: 0ms;"></i>
-                    </div>
-                    <div class="caption-box">
-                        <h3>Mountain and outdoor</h3>
-                        <p>
-                            Interdum iusto pulvinar consequuntur augue optio, repellat fugrus expedinisi ut aliquip ex
-                            ea commodo consequatta fusce temporibus est odit mi quo iquid sempere veritatis dignissimoso
-                            pertillio.
-                        </p>
-                    </div>
-                </div>
-                <hr class="space visible-xs">
-            </div> --}}
             <div class="col-md-8 col-sm-8">
                 <div class="advs-box advs-box-side-icon">
-                    {{-- <div class="icon-box">
-                        <i class="fa fa-road icon anima"></i>
-                    </div> --}}
                     <div class="caption-box">
-                        <h3>{{ takeText($about,'headline2') }}</h3>
+                        <h2>{{ takeText($about,'headline2') }}</h2>
                         <p>
                             {{ takeText($about,'secondsubtext') }}
                         </p>
                         @php
                             $secondsubitems = takeText($about,'secondsubitems');
-                            if (str_contains($secondsubitems, '*')) { 
+                            if (str_contains($secondsubitems, '*')) {
                                 $secondsubitems = explode('*', $secondsubitems);
                                 foreach ($secondsubitems as $value) {
                                     if(!$value) continue;
@@ -65,12 +41,107 @@
                 <img src="{{$about[0]->getFirstMediaUrl('about_image')}}" alt="" style="margin-top: -1px;">
             </div>
         </div>
+
         <hr class="space s">
         <hr>
         <hr class="space s">
-        {{-- <p class="block-quote quote-1 quote-gray">
-            {{ __('about.about.footertext') }}
-        </p> --}}
+
+        <div class="about-block" id="misia">
+            <h2 class="about-block-title">{{ takeText($aboutSections,'mission') }}</h2>
+            <p>{{ takeText($aboutSections,'mission_text') }}</p>
+        </div>
+
+        <hr class="space s">
+
+        <div class="about-block" id="mizani">
+            <h2 class="about-block-title">{{ takeText($aboutSections,'goal') }}</h2>
+            <p>{{ takeText($aboutSections,'goal_text') }}</p>
+        </div>
+
+        <hr class="space s">
+
+        <div class="about-block" id="girebulebebi">
+            <h2 class="about-block-title">{{ takeText($aboutSections,'values') }}</h2>
+            <p>{{ takeText($aboutSections,'values_text') }}</p>
+        </div>
+
+        @if ($teamMembers->isNotEmpty())
+            <hr class="space s">
+            <hr>
+            <hr class="space s">
+
+            <div class="about-block" id="team">
+                <h2 class="about-block-title">{{ __('about.team_title') }}</h2>
+                <div class="row">
+                    @foreach ($teamMembers as $member)
+                        <div class="col-md-4 col-sm-6">
+                            <div class="advs-box niche-box-team team-member-card">
+                                <div class="img-box">
+                                    <img src="{{ $member->getFirstMediaUrl('main') }}" alt="{{ e($member->imageAltForLocale()) }}">
+                                </div>
+                                <div class="content-box">
+                                    <h3>{{ $member['name_'.app()->getLocale()] }}</h3>
+                                    <h4>{{ $member['position_'.app()->getLocale()] }}</h4>
+                                </div>
+                            </div>
+                            <hr class="space m">
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        @endif
+
+        <hr class="space s">
     </div>
 </div>
+<style>
+    .about-block-title {
+        font-weight: bold;
+        color: #707070;
+        margin-bottom: 15px;
+    }
+
+    .about-block {
+        scroll-margin-top: 120px;
+    }
+
+    #team .team-member-card {
+        padding-bottom: 0;
+        overflow: visible;
+    }
+
+    #team .team-member-card .content-box {
+        position: static;
+        height: auto;
+        margin-top: 0;
+        transition: none;
+    }
+
+    #team .team-member-card:hover .content-box {
+        margin-top: 0;
+        height: auto;
+    }
+
+    #team .team-member-card .img-box img,
+    #team .team-member-card:hover .img-box img {
+        transform: none !important;
+        transition: none !important;
+    }
+</style>
+<script>
+    $(document).ready(function() {
+        if (!window.location.hash) {
+            return;
+        }
+
+        var target = document.querySelector(window.location.hash);
+        if (!target) {
+            return;
+        }
+
+        $('html, body').animate({
+            scrollTop: $(target).offset().top - 120
+        }, 1000);
+    });
+</script>
 @include('layouts.footer')

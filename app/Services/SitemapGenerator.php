@@ -25,7 +25,6 @@ class SitemapGenerator
     private const STATIC_ROUTES = [
         'homepagefront' => ['changefreq' => 'weekly', 'priority' => '1.0'],
         'about' => ['changefreq' => 'monthly', 'priority' => '0.8'],
-        'sub-about' => ['changefreq' => 'monthly', 'priority' => '0.7'],
         'services' => ['changefreq' => 'weekly', 'priority' => '0.9'],
         'projects' => ['changefreq' => 'weekly', 'priority' => '0.8'],
         'news' => ['changefreq' => 'weekly', 'priority' => '0.8'],

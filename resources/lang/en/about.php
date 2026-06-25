@@ -43,7 +43,9 @@ return [
         'values' => 'Values',
         'values_text' => 'EXPERTS FOR SOLUTIONS carries such values as continuous development, sharing experience, success and responsibility, and adapting to customer interests. The listed values are mainly the framework within which the brand is positioned',
 
-    ]
+    ],
+
+    'team_title' => 'Founders',
     
 
 
