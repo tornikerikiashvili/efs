@@ -91,7 +91,7 @@ class ServicesController extends Controller
         $validator = Validator::make($request->all(), [
             "name_ka" => "required",
             "name_en" => "required",
-            "image" => 'required|image|mimes:jpeg,jpg,png,gif',
+            "image" => 'required|image|mimes:'.cms_image_mimes(),
         ]);
 
         if ($validator->fails()) {
@@ -181,8 +181,8 @@ class ServicesController extends Controller
         $validator = Validator::make($request->all(), [
             "name_ka" => "required",
             "name_en" => "required",
-            "image" => 'nullable|image|mimes:jpeg,jpg,png,gif',
-            "icon" => 'nullable|image|mimes:jpeg,jpg,png,gif',
+            "image" => 'nullable|image|mimes:'.cms_image_mimes(),
+            "icon" => 'nullable|image|mimes:'.cms_image_mimes(),
         ]);
 
         if ($validator->fails()) {

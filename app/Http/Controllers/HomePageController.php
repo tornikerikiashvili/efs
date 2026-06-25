@@ -71,8 +71,8 @@ class HomePageController extends Controller
         $validator = Validator::make($request->all(), [
             'mainsliderimage_ka' => 'required',
             'mainsliderimage_en' => 'required',
-            "mainsliderimage_ka" => 'image|mimes:jpeg,jpg,png,gif',
-            "mainsliderimage_en" => 'image|mimes:jpeg,jpg,png,gif',
+            "mainsliderimage_ka" => 'image|mimes:'.cms_image_mimes(),
+            "mainsliderimage_en" => 'image|mimes:'.cms_image_mimes(),
         ]);
 
         if ($validator->fails()) {

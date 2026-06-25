@@ -32,7 +32,7 @@ class NewsController extends Controller
         $validator = Validator::make($request->all(), [
             "name_ka" => "required",
             "name_en" => "required",
-            "image" => 'image|mimes:jpeg,jpg,png,gif',
+            "image" => 'image|mimes:'.cms_image_mimes(),
         ]);
 
         if ($validator->fails()) {
@@ -99,7 +99,7 @@ class NewsController extends Controller
         $validator = Validator::make($request->all(), [
             "name_ka" => "required",
             "name_en" => "required",
-            "image" => 'mimes:jpeg,jpg,png,gif',
+            "image" => 'mimes:'.cms_image_mimes(),
         ]);
 
         if ($validator->fails()) {

@@ -109,8 +109,12 @@ class AboutController extends Controller
         }
 
         
-        if($request->hasFile('about_image') && $request->file('about_image')->isValid()){
-            $staticModel = About::where('page_id',1)->find(1);
+        if ($request->hasFile('about_image') && $request->file('about_image')->isValid()) {
+            $request->validate([
+                'about_image' => 'image|mimes:'.cms_image_mimes(),
+            ]);
+
+            $staticModel = About::where('page_id', 1)->find(1);
 
             $staticModel->addMedia($request->about_image)
             ->toMediaCollection('about_image');

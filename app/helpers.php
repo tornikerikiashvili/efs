@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
+function cms_image_mimes(): string
+{
+    return 'jpeg,jpg,png,gif,webp';
+}
+
 function test()
 {
    return 'A Global Function with ';

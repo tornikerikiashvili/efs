@@ -179,8 +179,8 @@ class ProjectsController extends Controller
             "name_ka" => "required",
             "name_en" => "required",
             "image" => 'required',
-            "image" => 'image|mimes:jpeg,jpg,png,gif',
-            "icon" => 'image|mimes:jpeg,jpg,png,gif',
+            "image" => 'image|mimes:'.cms_image_mimes(),
+            "icon" => 'image|mimes:'.cms_image_mimes(),
             
         ]);
 
@@ -272,7 +272,7 @@ class ProjectsController extends Controller
         $validator = Validator::make($request->all(), [
             "name_ka" => "required",
             "name_en" => "required",
-            "image" => 'mimes:jpeg,jpg,png,gif'
+            "image" => 'mimes:'.cms_image_mimes(),
         ]);
 
      
